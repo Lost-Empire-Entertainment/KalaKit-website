@@ -1,0 +1,8 @@
+# Ignore folders not needed for distribution
+out/
+.vs/
+build-debug/
+build-release/
+
+# Ignore common file types not needed for distribution
+*.exe

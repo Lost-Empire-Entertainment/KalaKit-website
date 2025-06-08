@@ -1,0 +1,262 @@
+//Copyright(C) 2025 Lost Empire Entertainment
+//This program comes with ABSOLUTELY NO WARRANTY.
+//This is free software, and you are welcome to redistribute it under certain conditions.
+//Read LICENSE.md for more information.
+
+#pragma once
+
+#include <string>
+#include <memory>
+#include <vector>
+#include <thread>
+#include <mutex>
+#include <unordered_set>
+
+//#include "external/ktypes.hpp"
+#include "core/mimetype.hpp"
+
+namespace KalaKit::Core
+{
+	using std::string;
+	using std::unique_ptr;
+	using std::vector;
+	using std::atomic;
+	using std::mutex;
+	using std::unordered_set;
+	using std::pair;
+	//using KalaKit::KalaTypes::u16;
+
+	enum class AccessLevel
+	{
+		access_user,
+		access_registered,
+		access_admin
+	};
+
+	struct Route
+	{
+		string route;
+		string filePath;
+		string mimeType;
+		AccessLevel accessLevel;
+	};
+
+	struct ErrorMessage
+	{
+		string error403;
+		string error404;
+		string error418;
+		string error500;
+	};
+
+	struct DataFile
+	{
+		string whitelistedRoutesFolder;
+		string whitelistedExtensionsFile;
+		string whitelistedIPsFile;
+		string bannedIPsFile;
+		string blacklistedKeywordsFile;
+	};
+
+	enum class DataFileType
+	{
+		datafile_extension,
+		datafile_whitelistedIP,
+		datafile_bannedIP,
+		datafile_blacklistedKeyword
+	};
+	
+	class Server
+	{
+	public:
+		static inline unique_ptr<Server> server;
+
+		//File paths for server admin provided error pages,
+		//loads browser defaults otherwise.
+		ErrorMessage errorMessage;
+
+		/// <summary>
+		/// File paths for server admin provided data files
+		/// for ips, extensions, keywords and others.
+		/// </summary>
+		DataFile dataFile;
+
+		Server(
+			unsigned int port,
+			unsigned int healthTimer,
+			const string& serverName,
+			const string& domainName,
+			const ErrorMessage& errorMessage,
+			const DataFile& dataFile) :
+			port(port),
+			healthTimer(healthTimer),
+			serverName(serverName),
+			domainName(domainName),
+			errorMessage(errorMessage),
+			dataFile(dataFile) {}
+
+		/// <summary>
+		/// Initializes the server. Must be ran first before any other components.
+		/// </summary>
+		static bool Initialize(
+			unsigned int port,
+			unsigned int healthTimer,
+			const string& serverName,
+			const string& domainName,
+			const ErrorMessage& errorMessage,
+			const DataFile& datafile,
+			const vector<string>& registeredRoutes,
+			const vector<string>& adminRoutes);
+
+		/// <summary>
+		/// Starts up the server accept loop and health status report.
+		/// Run this only once, not every frame.
+		/// </summary>
+		/// <param name="healthTimer">How often should the health report be sent (seconds)?</param>
+		void Start() const;
+
+		/// <summary>
+		/// Returns true if a connection to google.com can be made.
+		/// </summary>
+		bool HasInternet();
+
+		/// <summary>
+		/// Returns true if the current server tunnel is alive and healthy.
+		/// </summary>
+		bool IsTunnelAlive(uintptr_t tunnelHandle);
+
+		/// <summary>
+		/// Send binary data to client.
+		/// </summary>
+		vector<char> ServeFile(
+			const string& route,
+			size_t rangeStart,
+			size_t rangeEnd,
+			size_t& outTotalSize,
+			bool& outSliced);
+
+		/// <summary>
+		/// Parse headers from raw HTTP string.
+		/// </summary>
+		string ExtractHeaderValue(
+			const string& request,
+			const string& headerName);
+
+		/// <summary>
+		/// Parse byte range from header.
+		/// </summary>
+		void ParseByteRange(
+			const string& header,
+			size_t& outStart,
+			size_t& outEnd);
+
+		/// <summary>
+		/// Check whether this route is allowed to be accessed.
+		/// If you access it you will get banned, it is used to keep away scrapers and bots.
+		/// </summary>
+		bool IsBlacklistedRoute(const string& route);
+
+		/// <summary>
+		/// Returns banned ip + reason if IP address is banned and shouldnt be allowed to access any routes.
+		/// </summary>
+		pair<string, string> IsBannedClient(const string& ip) const;
+
+		/// <summary>
+		/// Add info about banned ip to banned-ips.txt.
+		/// </summary>
+		bool BanClient(const pair<string, string>& target) const;
+
+		/// <summary>
+		/// Returns true if given IP matches any host local ipv4 or ipv6.
+		/// </summary>
+		bool IsHost(const string& targetIP);
+
+		/// <summary>
+		/// Returns whitelisted ip + reason if IP address is whitelisted and should always be allowed to access any existing routes.
+		/// </summary>
+		pair<string, string> IsWhitelistedClient(const string& ip) const;
+
+		/// <summary>
+		/// Returns true if route requres registered user access.
+		/// </summary>
+		bool IsRegisteredRoute(const string& route);
+
+		/// <summary>
+		/// Returns true if route requres admin access.
+		/// </summary>
+		bool IsAdminRoute(const string& route);
+
+		/// <summary>
+		/// Allows server to start accepting connections. Do not call manually.
+		/// </summary>
+		void SetServerReadyState(bool newReadyState) { isServerReady = newReadyState; };
+
+		void SetServerName(const string& newServerName) { serverName = newServerName; }
+		void SetDomainName(const string& newDomainName) { domainName = newDomainName; }
+
+		void AddNewWhitelistedRoute(const string& rootPath, const string& filePath) const;
+		void AddNewWhitelistedExtension(const string& newExtension) const;
+
+		void RemoveWhitelistedRoute(const string& thisRoute) const;
+		void RemoveWhitelistedExtension(const string& thisExtension) const;
+
+		bool IsServerReady() const { return isServerReady; }
+		string GetServerName() { return serverName; }
+		string GetDomainName() { return domainName; }
+
+		void GetFileData(DataFileType dataFileType) const;
+		void GetWhitelistedRoutes() const;
+
+		/// <summary>
+		/// Closes the server. Use Core::Quit instead of this.
+		/// </summary>
+		void Quit() const;
+	private:
+		bool PreInitializeCheck() const;
+
+		/// <summary>
+		/// Header parser for getting the results from a cloudflared header.
+		/// </summary>
+		string ExtractHeader(
+			const string& request,
+			const string& headerName);
+
+		/// <summary>
+		/// Calls 'ipconfig' and stores all host IPs in machineIPs vector.
+		/// </summary>
+		void GetMachineIPs();
+
+		/// <summary>
+		/// Reads 'banned-ips.txt' and stores all IPs and reasons in bannedIPs pair.
+		/// </summary>
+		void GetBannedIPs();
+
+		/// <summary>
+		/// Reads 'whitelisted-ips.txt' and stores all IPs and reasons in whitelistedIPs pair.
+		/// </summary>
+		void GetWhitelistedIPs();
+
+		/// <summary>
+		/// Assign route access level dynamically based off of registered and admin route vectors.
+		/// </summary>
+		void SetRouteAccessLevels();
+
+		/// <summary>
+		/// Handle each client in its own thread.
+		/// </summary>
+		void HandleClient(uintptr_t);
+
+		void SocketCleanup(uintptr_t clientSocket);
+
+		bool isServerReady = false; //Used to check if server is ready to start.
+
+		mutable uintptr_t serverSocket{}; //Current active socket
+		mutex clientSocketsMutex;
+		unordered_set<uintptr_t> activeClientSockets;
+
+		unsigned int port; //Local server port
+		unsigned int healthTimer; //Countdown until server reports health check.
+		string serverName; //The server name used for cloudflare/dns calls
+		string domainName; //The domain name that is launched
+	};
+}
