@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Admin panel loaded successfully.");
 
-    const footer = document.querySelector(".admin-footer");
+    const footer = document.querySelector(".footer");
 
     function adjustFooterPosition() {
         const bodyHeight = document.body.scrollHeight;

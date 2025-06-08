@@ -9,7 +9,7 @@ body {
     background-position: center;
 }
 
-.admin-header {
+.page-header {
     position: absolute;
     top: 25px;
     left: 50%;
@@ -17,7 +17,7 @@ body {
     text-align: center;
 }
 
-.admin-title {
+.page-title {
     margin: 0;
     font-family: "Segoe UI", Verdana, Geneva, Tahoma, sans-serif;
     font-size: 32px;
@@ -29,14 +29,7 @@ body {
     border-radius: 6px;
 }
 
-.filler-box {
-    margin: 100px 50px 0;
-    height: 500px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-}
-
-.admin-footer {
+.footer {
     width: 100%;
     background: #222;
     padding: 10px 0;
@@ -44,12 +37,33 @@ body {
     border-top: 1px solid #444;
 }
 
-.admin-footer.fixed {
+.footer.fixed {
     position: fixed;
     bottom: 0;
 }
 
-.admin-button {
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.footer-left {
+    position: absolute;
+    left: 20px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.footer-right {
+    position: absolute;
+    right: 20px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+.footer-button {
     background: #333;
     color: white;
     border: none;
@@ -62,7 +76,7 @@ body {
     transition: box-shadow 0.2s ease, background 0.2s ease;
 }
 
-.admin-button:hover {
+.footer-button:hover {
     background: #444;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
