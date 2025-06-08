@@ -2,7 +2,9 @@
 
 [![License](https://img.shields.io/badge/license-Proprietary-blue)](LICENSE.md)
 
-This is the source code repository for the [KalaKit website](https://thekalakit.com) which is where all the documentation for the KalaKit libraries will be listed at. 
+This is the source code repository for the [KalaKit website](https://thekalakit.com) which is where all the documentation for the KalaKit libraries will be hosted at. 
+
+Have a look at the source code for the server [here](https://github.com/KalaKit/KalaServer). The website repository does not include any of its source code except the headers. 
 
 The website is currently under construction and is not fully functional. Lots of changes will be made during the development of the various KalaKit libraries.
 
