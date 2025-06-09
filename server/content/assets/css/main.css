@@ -44,21 +44,17 @@ body {
 
 .footer-content {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
+    padding: 0 20px;
 }
 
 .footer-left {
-    position: absolute;
-    left: 20px;
     font-size: 14px;
     color: #aaa;
 }
 
 .footer-right {
-    position: absolute;
-    right: 20px;
     font-size: 14px;
     color: #aaa;
 }
