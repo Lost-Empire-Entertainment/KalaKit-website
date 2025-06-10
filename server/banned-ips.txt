@@ -75,15 +75,19 @@
 # CMS-Specific Attacks
 
 ## WordPress and Plugin Exploits
+
   2a06:98c0:3600::       | persistent IPv6 WP dictionary attacks
+  34.125.219.157         | /wp-includes/wlwmanifest.xml
   45.76.197.27           | dumb bot tried /wp-login.php
   45.141.                | WordPress probe followed by fallback scan on /old/
+  64.181.247.96          | xmlrpc abuse for brute-force amplification
   104.131.0.0            | wp-json enumeration to discover user data
   129.146.7.             | WP scanner probing feeds and legacy paths
   138.2.71.66            | cross-CMS scanner: Joomla + WordPress JS probe
   142.93.0.0             | xmlrpc abuse for brute-force amplification
   143.198.197.183        | wp-includes bruteforce scan
   152.42.241.137         | wp-includes and xmlrpc probe via repeated GETs
+  157.230.40.55          | wp-includes bruteforce scan
   159.65.                | wlwmanifest.xml probe for WordPress discovery
   178.128.0.0            | WordPress plugin vulnerability scanner
   188.166.               | wlwmanifest.xml probe and direct POST exploits
@@ -116,6 +120,7 @@
   45.9.20.0              | aggressive upload attempts to detect shell access
   91.219.236.0           | RCE payloads attempting eval and system calls
   93.123.109.105         | attempted access to /.git/config for source leak
+  185.177.72.106         | attempted access to /.git/HEAD
   185.225.19.240         | RFI upload path scanning (remote file inclusion)
   194.110.115.0          | mass multi-vector upload probing
   198.144.121.0          | shell upload and redirect abuse via POST
