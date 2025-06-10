@@ -37,6 +37,10 @@ int main()
 	unsigned int port = 30000;
 
 	unsigned int healthTimer = 600; //600 seconds (10 minutes) until health message ping
+	
+	//How many times should the client be allowed to connect to 
+	//the same route per second before they are auto-banned by server
+	unsigned int rateLimitCounter = 5;
 
 	string serverName = "KalaServer";
 	string domainName = "thekalakit.com";
@@ -68,6 +72,7 @@ int main()
 	bool success = Server::Initialize(
 		port,
 		healthTimer,
+		rateLimitCounter,
 		serverName,
 		domainName,
 		msg,
