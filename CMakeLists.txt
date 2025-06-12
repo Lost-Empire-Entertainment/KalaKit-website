@@ -14,6 +14,11 @@ set(INCLUDE_DIR "${SERVER_ROOT}/include")
 set(KALASERVER_ROOT "${CMAKE_SOURCE_DIR}/external/KalaServer")
 set(EXT_OPENSSL_DIR "${CMAKE_SOURCE_DIR}/external/OpenSSL")
 
+set(OPENSSL_LIB1_RELEASE "${EXT_OPENSSL_DIR}/release/libssl.lib")
+set(OPENSSL_LIB2_RELEASE "${EXT_OPENSSL_DIR}/release/libcrypto.lib")
+set(OPENSSL_LIB1_DEBUG "${EXT_OPENSSL_DIR}/debug/libssl.lib")
+set(OPENSSL_LIB2_DEBUG "${EXT_OPENSSL_DIR}/debug/libcrypto.lib")
+
 file(GLOB_RECURSE SERVER_SOURCE_FILES CONFIGURE_DEPENDS
 	${SRC_DIR}/*.cpp
 	${SRC_DIR}/*/*.cpp
@@ -33,14 +38,15 @@ target_compile_definitions(Server PRIVATE
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-	target_link_libraries(Server PRIVATE "${KALASERVER_ROOT}/release/KalaServer.lib")
-	target_link_directories(Server PRIVATE "${EXT_OPENSSL_DIR}/release")
+	target_link_libraries(Server PRIVATE
+		"${KALASERVER_ROOT}/release/KalaServer.lib"
+		"${OPENSSL_LIB1_RELEASE}"
+		"${OPENSSL_LIB2_RELEASE}"
+	)
 else()
-	target_link_libraries(Server PRIVATE "${KALASERVER_ROOT}/debug/KalaServer.lib")
-	target_link_directories(Server PRIVATE "${EXT_OPENSSL_DIR}/debug")
+	target_link_libraries(Server PRIVATE
+		"${KALASERVER_ROOT}/debug/KalaServer.lib"
+		"${OPENSSL_LIB1_DEBUG}"
+		"${OPENSSL_LIB2_DEBUG}"
+	)
 endif()
-
-target_link_libraries(Server PRIVATE
-	libssl.lib
-	libcrypto.lib
-)
