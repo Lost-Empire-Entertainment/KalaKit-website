@@ -40,7 +40,7 @@ int main()
 {
 	unsigned int port = 30000;
 
-	unsigned int healthTimer = 600; //600 seconds (10 minutes) until health message ping
+	unsigned int healthTimer = 900; //900 seconds (15 minutes) until health message ping
 	
 	//How many times should the client be allowed to connect to 
 	//the same route per second before they are auto-banned by server
@@ -93,9 +93,27 @@ int main()
 		auto delimiterPos = line.find('|');
 		if (delimiterPos != string::npos)
 		{
-			emailSenderData.username = line.substr(0, delimiterPos);
-			string rawPassword = line.substr(delimiterPos + 1);
-			emailSenderData.password = rawPassword.substr(0, rawPassword.find_last_not_of(" \t\r\n") + 1);
+			auto trim = [](string& s) {
+				size_t start = s.find_first_not_of(" \t\r\n");
+				size_t end = s.find_last_not_of(" \t\r\n");
+				s = (start == string::npos 
+					|| end == string::npos) 
+					? "" 
+					: s.substr(start, end - start + 1);
+			};
+
+			if (line.find("username") != string::npos)
+			{
+				string rawUsername = line.substr(delimiterPos + 1);
+				trim(rawUsername);
+				emailSenderData.username = rawUsername;
+			}
+			else if (line.find("password") != string::npos)
+			{
+				string rawPassword = line.substr(delimiterPos + 1);
+				trim(rawPassword);
+				emailSenderData.password = rawPassword;
+			}
 		}
 	}
 
