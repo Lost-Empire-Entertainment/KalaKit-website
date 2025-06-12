@@ -21,6 +21,7 @@ using KalaKit::Core::Server;
 using KalaKit::Core::ErrorMessage;
 using KalaKit::Core::DataFile;
 using KalaKit::Core::EmailSenderData;
+using KalaKit::Core::EmailEvent;
 using KalaKit::Core::ConsoleMessageType;
 using KalaKit::Core::PopupReason;
 using KalaKit::DNS::CloudFlare;
@@ -67,6 +68,14 @@ int main()
 	};
 	
 	EmailSenderData emailSenderData{};
+	
+	vector<EmailEvent> events = 
+	{
+		EmailEvent::email_client_was_banned,
+		EmailEvent::email_banned_client_attempted_connection
+	};
+	emailSenderData.emailEvents = events;
+	
 	string emailSenderDataFile = path(current_path() / "email-sender-data.txt").string();
 	
 	ifstream readFile(emailSenderDataFile);
