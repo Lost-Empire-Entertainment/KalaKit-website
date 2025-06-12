@@ -8,6 +8,7 @@
 #include <filesystem>
 #include <thread>
 #include <chrono>
+#include <fstream>
 
 #include "core/core.hpp"
 #include "core/server.hpp"
@@ -19,6 +20,7 @@ using KalaKit::Core::KalaServer;
 using KalaKit::Core::Server;
 using KalaKit::Core::ErrorMessage;
 using KalaKit::Core::DataFile;
+using KalaKit::Core::EmailSenderData;
 using KalaKit::Core::ConsoleMessageType;
 using KalaKit::Core::PopupReason;
 using KalaKit::DNS::CloudFlare;
@@ -30,6 +32,7 @@ using std::filesystem::current_path;
 using std::filesystem::path;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
+using std::ifstream;
 //using KalaKit::KalaTypes::u16;
 
 int main()
@@ -62,6 +65,32 @@ int main()
 		.bannedIPsFile = "banned-ips.txt",
 		.blacklistedKeywordsFile = "blacklisted-keywords.txt"
 	};
+	
+	EmailSenderData emailSenderData{};
+	string emailSenderDataFile = path(current_path() / "email-sender-data.txt").string();
+	
+	ifstream readFile(emailSenderDataFile);
+	if (!readFile)
+	{
+		KalaServer::CreatePopup(
+			PopupReason::Reason_Error,
+			"Failed to open email sender data file to read its contents!");
+		return 0;
+	}
+
+	string line;
+	while (getline(readFile, line))
+	{
+		auto delimiterPos = line.find('|');
+		if (delimiterPos != string::npos)
+		{
+			emailSenderData.username = line.substr(0, delimiterPos);
+			string rawPassword = line.substr(delimiterPos + 1);
+			emailSenderData.password = rawPassword.substr(0, rawPassword.find_last_not_of(" \t\r\n") + 1);
+		}
+	}
+
+	readFile.close();
 
 	vector<string> registeredRoutes{};
 	vector<string> adminRoutes
@@ -77,6 +106,7 @@ int main()
 		domainName,
 		msg,
 		dataFile,
+		emailSenderData,
 		registeredRoutes,
 		adminRoutes);
 

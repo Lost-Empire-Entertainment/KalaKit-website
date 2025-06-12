@@ -12,6 +12,7 @@ set(SRC_DIR "${SERVER_ROOT}/src")
 set(INCLUDE_DIR "${SERVER_ROOT}/include")
 
 set(KALASERVER_ROOT "${CMAKE_SOURCE_DIR}/external/KalaServer")
+set(EXT_OPENSSL_DIR "${CMAKE_SOURCE_DIR}/external/OpenSSL")
 
 file(GLOB_RECURSE SERVER_SOURCE_FILES CONFIGURE_DEPENDS
 	${SRC_DIR}/*.cpp
@@ -23,10 +24,23 @@ add_executable(Server ${SERVER_SOURCE_FILES})
 target_include_directories(Server PUBLIC 
 	"${INCLUDE_DIR}"
 	"${KALASERVER_ROOT}/include"
+	"${EXT_OPENSSL_DIR}/include"
+)
+
+# Ensure linker uses static OpenSSL
+target_compile_definitions(Server PRIVATE
+    OPENSSL_NO_DYNAMIC_ENGINE
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
 	target_link_libraries(Server PRIVATE "${KALASERVER_ROOT}/release/KalaServer.lib")
+	target_link_directories(Server PRIVATE "${EXT_OPENSSL_DIR}/release")
 else()
 	target_link_libraries(Server PRIVATE "${KALASERVER_ROOT}/debug/KalaServer.lib")
+	target_link_directories(Server PRIVATE "${EXT_OPENSSL_DIR}/debug")
 endif()
+
+target_link_libraries(Server PRIVATE
+	libssl.lib
+	libcrypto.lib
+)
