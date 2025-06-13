@@ -1,0 +1,2 @@
+34.76.103.239 | /wp-includes/wlwmanifest.xml
+192.9.247.99 | /xmlrpc.php
