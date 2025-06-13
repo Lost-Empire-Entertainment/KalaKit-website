@@ -1,11 +1,15 @@
 # Wordpress bots/scrapers
-  34.45.185.22         | Attempted access to wp-includes - suspicious WordPress enumeration
-  34.76.103.239        | Attempted access to wp-includes - suspicious WordPress enumeration
-  152.42.163.177       | Attempted access to wp-includes - suspicious WordPress enumeration
-  192.9.247.99         | Probing xmlrpc.php - potential brute force or DDoS vector
+  34.45.185.22         | Attempted to access wp-includes and others
+  34.76.103.239        | Attempted to access wp-includes and others
+  113.161.176.37       | Attempted to access wp-includes and others
+  152.42.163.177       | Attempted to access wp-includes and others
+  192.9.247.99         | Attempted to access xmlrpc.php
+  206.189.91.241       | Attempted to access xmlrpc.php
+  2a06:98c0:3600::103  | Attempted to access wp-admin/setup-config.php
 
 # GitHub bots/scrapers
-185.177.72.210         | Attempted access to .git/HEAD - likely source code enumeration
+  185.177.72.210       | Attempted to access .git/HEAD
+  196.251.114.9        | Attempted to access .git/config
 
 # Automatically added by server
 
