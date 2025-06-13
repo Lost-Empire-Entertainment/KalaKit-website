@@ -40,7 +40,7 @@ int main()
 {
 	unsigned int port = 30000;
 
-	unsigned int healthTimer = 900; //900 seconds (15 minutes) until health message ping
+	unsigned int healthTimer = 3600; //3600 seconds (60 minutes) until health message ping
 	
 	//How many times should the client be allowed to connect to 
 	//the same route per second before they are auto-banned by server
@@ -72,7 +72,6 @@ int main()
 	vector<EmailEvent> events = 
 	{
 		EmailEvent::email_client_was_banned,
-		EmailEvent::email_banned_client_attempted_connection
 	};
 	emailSenderData.emailEvents = events;
 	
