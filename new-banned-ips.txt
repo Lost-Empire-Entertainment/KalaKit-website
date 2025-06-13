@@ -1,2 +1,4 @@
 34.76.103.239 | /wp-includes/wlwmanifest.xml
 192.9.247.99 | /xmlrpc.php
+185.177.72.210 | /.git/HEAD
+152.42.163.177 | /wp-includes/wlwmanifest.xml
