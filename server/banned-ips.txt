@@ -1,11 +1,11 @@
 # Wordpress bots/scrapers
+  34.45.185.22         | Attempted access to wp-includes — suspicious WordPress enumeration
+  34.76.103.239        | Attempted access to wp-includes — suspicious WordPress enumeration
+  152.42.163.177       | Attempted access to wp-includes — suspicious WordPress enumeration
+  192.9.247.99         | Probing xmlrpc.php — potential brute force or DDoS vector
 
-  34.76.103.239          | /wp-includes/wlwmanifest.xml
-  152.42.163.177         | /wp-includes/wlwmanifest.xml
-  192.9.247.99           | /xmlrpc.php
-
-## Github bots/scrapers
-  185.177.72.210         | /.git/HEAD
+# GitHub bots/scrapers
+185.177.72.210         | Attempted access to .git/HEAD — likely source code enumeration
 
 # Automatically added by server
 
