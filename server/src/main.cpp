@@ -9,9 +9,11 @@
 #include <thread>
 #include <chrono>
 #include <fstream>
+#include <memory>
 
 #include "core/core.hpp"
 #include "core/server.hpp"
+#include "core/event.hpp"
 #include "dns/cloudflare.hpp"
 #include "dns/dns.hpp"
 //#include "external/ktypes.hpp"
@@ -20,12 +22,12 @@ using KalaKit::Core::KalaServer;
 using KalaKit::Core::Server;
 using KalaKit::Core::ErrorMessage;
 using KalaKit::Core::DataFile;
-using KalaKit::Core::EmailSenderData;
-using KalaKit::Core::EmailEvent;
-using KalaKit::Core::ConsoleMessageType;
-using KalaKit::Core::PopupReason;
 using KalaKit::DNS::CloudFlare;
 using KalaKit::DNS::CustomDNS;
+using KalaKit::Core::Event;
+using KalaKit::Core::EventType;
+using KalaKit::Core::PrintData;
+using KalaKit::Core::EmailSenderData;
 
 using std::string;
 using std::vector;
@@ -34,6 +36,8 @@ using std::filesystem::path;
 using std::this_thread::sleep_for;
 using std::chrono::milliseconds;
 using std::ifstream;
+using std::unique_ptr;
+using std::make_unique;
 //using KalaKit::KalaTypes::u16;
 
 int main()
@@ -69,20 +73,21 @@ int main()
 	
 	EmailSenderData emailSenderData{};
 	
-	vector<EmailEvent> events = 
+	vector<EventType> events = 
 	{
-		EmailEvent::email_client_was_banned,
+		EventType::event_banned_for_accessing_blacklisted_route,
+		EventType::event_banned_for_exceeding_rate_limit,
 	};
-	emailSenderData.emailEvents = events;
+	emailSenderData.events = events;
 	
 	string emailSenderDataFile = path(current_path() / "email-sender-data.txt").string();
 	
 	ifstream readFile(emailSenderDataFile);
 	if (!readFile)
 	{
-		KalaServer::CreatePopup(
-			PopupReason::Reason_Error,
-			"Failed to open email sender data file to read its contents!");
+		string msg = "Failed to open email sender data file to read its contents!";
+		unique_ptr<Event> event = make_unique<Event>();
+		event->SendEvent(EventType::event_popup_error, msg);
 		return 0;
 	}
 
@@ -145,12 +150,15 @@ int main()
 	//do not run dns and cloudflared together
 	//DNS::RunDNS();
 		
-	KalaServer::PrintConsoleMessage(
-		0,
-		true,
-		ConsoleMessageType::Type_Message,
-		"SERVER",
-		"Reached render loop successfully!");
+	PrintData pd =
+	{
+		.indentationLength = 2,
+		.addTimeStamp = true,
+		.customTag = "SERVER",
+		.message = "Reached render loop successfully!"
+	};
+	unique_ptr<Event> renderEvent = make_unique<Event>();
+	renderEvent->SendEvent(EventType::event_print_message, pd);
 
 	while (KalaServer::isRunning)
 	{
