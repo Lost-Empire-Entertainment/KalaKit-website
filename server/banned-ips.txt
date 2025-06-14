@@ -5,7 +5,9 @@
   103.198.133.169      | Attempted to access wp-login.php
   113.161.176.37       | Attempted to access wp-includes/wlwmanifest.xml
   152.42.163.177       | Attempted to access wp-includes and others
+  159.203.10.97        | Attempted to access wp-includes
   192.9.247.99         | Attempted to access xmlrpc.php
+  202.182.121.32       | Attempted to access wp-login.php
   206.189.91.241       | Attempted to access xmlrpc.php
   2a06:98c0:3600::103  | Attempted to access wp-admin/setup-config.php
 
