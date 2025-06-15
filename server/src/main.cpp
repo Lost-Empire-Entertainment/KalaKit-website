@@ -49,7 +49,7 @@ int main()
 
 	//How many times should the client be allowed to connect to 
 	//the same route per second before they are auto-banned by server
-	unsigned int rateLimitCounter = 20;
+	unsigned int rateLimitCounter = 5;
 
 	string serverName = "KalaServer";
 	string domainName = "thekalakit.com";
