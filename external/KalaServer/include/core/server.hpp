@@ -27,6 +27,14 @@ namespace KalaKit::Core
 	using std::pair;
 	//using KalaKit::KalaTypes::u16;
 
+	static inline EventType sev_m = EventType::event_severity_message;
+	static inline EventType sev_d = EventType::event_severity_debug;
+	static inline EventType sev_w = EventType::event_severity_warning;
+	static inline EventType sev_e = EventType::event_severity_error;
+	static inline EventType rec_c = EventType::event_print_console_message;
+	static inline EventType rec_p = EventType::event_create_popup;
+	static inline EventType rec_e = EventType::event_send_email;
+
 	enum class AccessLevel
 	{
 		access_user,
@@ -89,17 +97,14 @@ namespace KalaKit::Core
 		//loads browser defaults otherwise.
 		ErrorMessage errorMessage;
 
-		/// <summary>
-		/// File paths for server admin provided data files
-		/// for ips, extensions, keywords and others.
-		/// </summary>
+		//File paths for server admin provided data files
+		//for ips, extensions, keywords and others.
 		DataFile dataFile;
 		
 		//Your email username and app password to be able to send emails
 		EmailSenderData emailSenderData;
-		
-		//The contents of the email + sender and receivers of the email
-		EmailData emailData;
+
+		HealthPingData healthPingData;
 
 		atomic<bool> canUpdateWhitelistedRoutes{ true };
 		atomic<bool> canUpdateRouteAccess{ true };
@@ -120,18 +125,18 @@ namespace KalaKit::Core
 
 		Server(
 			unsigned int port,
-			unsigned int healthTimer,
 			unsigned int rateLimitTimer,
 			const string& serverName,
 			const string& domainName,
+			const HealthPingData& healthPingData,
 			const ErrorMessage& errorMessage,
 			const DataFile& dataFile,
 			const EmailSenderData& emailSenderData) :
 			port(port),
-			healthTimer(healthTimer),
 			rateLimitTimer(rateLimitTimer),
 			serverName(serverName),
 			domainName(domainName),
+			healthPingData(healthPingData),
 			errorMessage(errorMessage),
 			dataFile(dataFile),
 			emailSenderData(emailSenderData) {}
@@ -141,10 +146,10 @@ namespace KalaKit::Core
 		/// </summary>
 		static bool Initialize(
 			unsigned int port,
-			unsigned int healthTimer,
 			unsigned int rateLimitTimer,
 			const string& serverName,
 			const string& domainName,
+			const HealthPingData& healthPingData,
 			const ErrorMessage& errorMessage,
 			const DataFile& datafile,
 			const EmailSenderData& emailSenderData,
@@ -267,7 +272,6 @@ namespace KalaKit::Core
 		mutable uintptr_t serverSocket{}; //Current active socket
 
 		unsigned int port; //Local server port
-		unsigned int healthTimer; //Countdown until server reports health check.
 		string serverName; //The server name used for cloudflare/dns calls
 		string domainName; //The domain name that is launched
 	};

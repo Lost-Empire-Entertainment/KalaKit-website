@@ -27,7 +27,10 @@ using KalaKit::DNS::CustomDNS;
 using KalaKit::Core::Event;
 using KalaKit::Core::EventType;
 using KalaKit::Core::PrintData;
+using KalaKit::Core::PopupData;
 using KalaKit::Core::EmailSenderData;
+using KalaKit::Core::HealthPingData;
+using KalaKit::Core::ReceiverPayload;
 
 using std::string;
 using std::vector;
@@ -44,8 +47,6 @@ int main()
 {
 	unsigned int port = 30000;
 
-	unsigned int healthTimer = 3600; //3600 seconds (60 minutes) until health message ping
-	
 	//How many times should the client be allowed to connect to 
 	//the same route per second before they are auto-banned by server
 	unsigned int rateLimitCounter = 5;
@@ -55,14 +56,25 @@ int main()
 	
 	string tunnelName = "KalaServer";
 
-	ErrorMessage msg =
+	vector<ReceiverPayload> payload =
+	{
+
+	};
+	HealthPingData hpData =
+	{
+		.healthTimer = 3600, //3600 seconds (60 minutes) until health message ping
+		.receivers = payload
+	};
+
+	ErrorMessage errorFiles =
 	{
 		.error403 = "/errors/403",
 		.error404 = "/errors/404",
 		.error418 = "/errors/418",
 		.error500 = "/errors/500"
 	};
-	DataFile dataFile =
+
+	DataFile configRoutes =
 	{
 		.whitelistedRoutesFolder = "content",
 		.whitelistedExtensionsFile = "whitelisted-extensions.txt",
@@ -72,22 +84,23 @@ int main()
 	};
 	
 	EmailSenderData emailSenderData{};
-	
 	vector<EventType> events = 
 	{
-		EventType::event_banned_for_accessing_blacklisted_route,
-		EventType::event_banned_for_exceeding_rate_limit,
+		EventType::event_client_was_banned,
 	};
 	emailSenderData.events = events;
 	
 	string emailSenderDataFile = path(current_path() / "email-sender-data.txt").string();
-	
 	ifstream readFile(emailSenderDataFile);
 	if (!readFile)
 	{
-		string msg = "Failed to open email sender data file to read its contents!";
+		PopupData pdata =
+		{
+			.message = "Failed to open email sender data file to read its contents!",
+			.severity = EventType::event_severity_error
+		};
 		unique_ptr<Event> event = make_unique<Event>();
-		event->SendEvent(EventType::event_popup_error, msg);
+		event->SendEvent(EventType::event_create_popup, pdata);
 		return 0;
 	}
 
@@ -131,12 +144,12 @@ int main()
 
 	bool success = Server::Initialize(
 		port,
-		healthTimer,
 		rateLimitCounter,
 		serverName,
 		domainName,
-		msg,
-		dataFile,
+		hpData,
+		errorFiles,
+		configRoutes,
 		emailSenderData,
 		registeredRoutes,
 		adminRoutes);
@@ -154,11 +167,12 @@ int main()
 	{
 		.indentationLength = 2,
 		.addTimeStamp = true,
+		.severity = EventType::event_print_console_message,
 		.customTag = "SERVER",
 		.message = "Reached render loop successfully!"
 	};
 	unique_ptr<Event> renderEvent = make_unique<Event>();
-	renderEvent->SendEvent(EventType::event_print_message, pd);
+	renderEvent->SendEvent(EventType::event_print_console_message, pd);
 
 	while (KalaServer::isRunning)
 	{
