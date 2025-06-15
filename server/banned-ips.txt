@@ -9,6 +9,7 @@
   192.9.247.99         | Attempted to access xmlrpc.php
   202.182.121.32       | Attempted to access wp-login.php
   206.189.91.241       | Attempted to access xmlrpc.php
+  207.148.90.194       | Attempted to access wp-login.php
   2a06:98c0:3600::103  | Attempted to access wp-admin/setup-config.php
 
 # GitHub bots/scrapers
