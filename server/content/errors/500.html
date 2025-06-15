@@ -2,10 +2,33 @@
 <html>
 <head>
 	<title>500 Internal Server Error</title>
+	<link rel="stylesheet" href="/assets/css/error.css?v0011">
+	<link rel="stylesheet" href="/assets/css/form.css?v0003">
 </head>
 <body>
-	<h1>Page does not exist!</h1>
-	<p>The file or page you are trying to access is broken or missing!</p>
-	<a href="/">Return to homepage</a>
+	<div class="container">
+		<h1>Internal server error</h1>
+
+		<p>This page failed to load! Refresh the page to try again.</p>
+
+		<!--
+		<form method="POST" action="/send-support-request" class="support-form">
+			<input type="email" placeholder="Your email address" required>
+			<input type="text" placeholder="Subject" required>
+			<textarea placeholder="Describe the issue..." rows="6" required></textarea>
+			<button type="submit">Send</button>
+		</form>
+		-->
+
+		<p>
+			Send info about the broken page to <strong>sanderveski@gmail.com</strong>
+		</p>
+
+		<div class="bottom-link">
+			<a href="/">
+				Go back home
+			</a>
+		</div>
+	</div>
 </body>
 </html>

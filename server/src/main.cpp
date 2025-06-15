@@ -49,16 +49,24 @@ int main()
 
 	//How many times should the client be allowed to connect to 
 	//the same route per second before they are auto-banned by server
-	unsigned int rateLimitCounter = 5;
+	unsigned int rateLimitCounter = 20;
 
 	string serverName = "KalaServer";
 	string domainName = "thekalakit.com";
 	
 	string tunnelName = "KalaServer";
 
+	PrintData healthPrint =
+	{
+		.indentationLength = 2,
+		.addTimeStamp = true,
+		.severity = EventType::event_severity_message,
+		.customTag = "HEALTH-PING",
+		.message = ""
+	};
 	vector<ReceiverPayload> payload =
 	{
-
+		healthPrint
 	};
 	HealthPingData hpData =
 	{

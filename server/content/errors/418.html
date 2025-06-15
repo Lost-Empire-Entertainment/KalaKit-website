@@ -2,20 +2,27 @@
 <html>
 <head>
 	<title>418 I'm a teapot</title>
-	<script src="/assets/js/ban_info.js"></script>
+	<link rel="stylesheet" href="/assets/css/error.css?v0011">
+	<link rel="stylesheet" href="/assets/css/form.css?v0003">
 </head>
-<body data-ip="REPLACEME_IP" data-reason="REPLACEME_REASON" data-target="REPLACEME_EMAIL">
-	<p>You reached this page because you got banned and one of the URLs you tried to access was for dumb bots!</p>
+<body>
+	<div class="container">
+		<h1>You've been banned</h1>
 
-	<p>
-		<strong>Your IP:</strong> <span id="bannedIP"></span>
-		<br>
-		<strong>Reason:</strong> <span id="banReason"></span>
-	</p>
+		<p>Users get banned for various reasons like accessing blacklisted routes or exceeding the rate limit.</p>
 
-	<p>
-		If this was an accident and you want to get unbanned then send a message to
-		<a id="emailLink" href="#">Email Support</a>
-	</p>
+		<!--
+		<form method="POST" action="/send-support-request" class="support-form">
+			<input type="email" placeholder="Your email address" required>
+			<input type="text" placeholder="Subject" required>
+			<textarea placeholder="Describe the issue..." rows="6" required></textarea>
+			<button type="submit">Send</button>
+		</form>
+		-->
+
+		<p>
+			Think this ban was a mistake? Email us at <strong>sanderveski@gmail.com</strong>
+		</p>
+	</div>
 </body>
 </html>
