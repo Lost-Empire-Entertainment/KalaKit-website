@@ -1,25 +1,15 @@
 # Web Framework & CMS Fingerprinting
-  wp-login
-  wp-admin
-  wp-json
-  xmlrpc
+  wp-includes
   wlwmanifest
-  wp-config
-  wp-cron
-  wp-trackback
-  wp-comments-post
-  admin
-  trackback
-  debug
+  wp-login
+  xmlrpc
+  wp-admin
+  setup-config
 
 ==================================================
 
 # File Types & Repos
-  .php
-  .log
-  .hg
-  .env
   .git
-  .vs
-  .proj
-  .sln
+  .php
+  HEAD
+  config

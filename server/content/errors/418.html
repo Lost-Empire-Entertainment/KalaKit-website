@@ -2,15 +2,20 @@
 <html>
 <head>
 	<title>418 I'm a teapot</title>
-	<meta http-equiv="refresh" content="2; URL='https://www.youtube.com/watch?v=dQw4w9WgXcQ'">
+	<script src="/assets/js/ban_info.js"></script>
 </head>
-<body>
-	<p>Cope and seethe, bot.</p>
+<body data-ip="REPLACEME_IP" data-reason="REPLACEME_REASON" data-target="REPLACEME_EMAIL">
+	<p>You reached this page because you got banned and one of the URLs you tried to access was for dumb bots!</p>
 
-	<script>
-		setTimeout(() => {
-			window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-		}, 2000);
-	</script>
+	<p>
+		<strong>Your IP:</strong> <span id="bannedIP"></span>
+		<br>
+		<strong>Reason:</strong> <span id="banReason"></span>
+	</p>
+
+	<p>
+		If this was an accident and you want to get unbanned then send a message to
+		<a id="emailLink" href="#">Email Support</a>
+	</p>
 </body>
 </html>

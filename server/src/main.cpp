@@ -167,7 +167,7 @@ int main()
 	{
 		.indentationLength = 2,
 		.addTimeStamp = true,
-		.severity = EventType::event_print_console_message,
+		.severity = EventType::event_severity_message,
 		.customTag = "SERVER",
 		.message = "Reached render loop successfully!"
 	};
