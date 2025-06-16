@@ -10,6 +10,7 @@
 #include <chrono>
 #include <fstream>
 #include <memory>
+#include <unordered_map>
 
 #include "core/core.hpp"
 #include "core/server.hpp"
@@ -28,7 +29,8 @@ using KalaKit::Core::Event;
 using KalaKit::Core::EventType;
 using KalaKit::Core::PrintData;
 using KalaKit::Core::PopupData;
-using KalaKit::Core::EmailSenderData;
+using KalaKit::Core::EmailData;
+using KalaKit::Core::BanClientData;
 using KalaKit::Core::HealthPingData;
 using KalaKit::Core::ReceiverPayload;
 
@@ -41,6 +43,7 @@ using std::chrono::milliseconds;
 using std::ifstream;
 using std::unique_ptr;
 using std::make_unique;
+using std::unordered_map;
 //using KalaKit::KalaTypes::u16;
 
 int main()
@@ -56,22 +59,102 @@ int main()
 	
 	string tunnelName = "KalaServer";
 
-	PrintData healthPrint =
+	string emailSenderDataFile = path(current_path() / "email-sender-data.txt").string();
+	ifstream readFile(emailSenderDataFile);
+	if (!readFile)
+	{
+		PopupData pdata =
+		{
+			.message = "Failed to open email sender data file to read its contents!",
+			.severity = EventType::event_severity_error
+		};
+		unique_ptr<Event> event = make_unique<Event>();
+		event->SendEvent(EventType::event_create_popup, pdata);
+		return 0;
+	}
+
+	string username{};
+	string password{};
+
+	string line;
+	while (getline(readFile, line))
+	{
+		auto delimiterPos = line.find('|');
+		if (delimiterPos != string::npos)
+		{
+			auto trim = [](string& s) {
+				size_t start = s.find_first_not_of(" \t\r\n");
+				size_t end = s.find_last_not_of(" \t\r\n");
+				s = (start == string::npos
+					|| end == string::npos)
+					? ""
+					: s.substr(start, end - start + 1);
+				};
+
+			if (line.find("username") != string::npos)
+			{
+				string rawUsername = line.substr(delimiterPos + 1);
+				trim(rawUsername);
+				username = rawUsername;
+			}
+			else if (line.find("password") != string::npos)
+			{
+				string rawPassword = line.substr(delimiterPos + 1);
+				trim(rawPassword);
+				password = rawPassword;
+			}
+		}
+	}
+
+	readFile.close();
+
+	PrintData printData =
 	{
 		.indentationLength = 2,
 		.addTimeStamp = true,
 		.severity = EventType::event_severity_message,
-		.customTag = "HEALTH-PING",
+		.customTag = "",
 		.message = ""
 	};
-	vector<ReceiverPayload> payload =
+	vector<string> receivers_email = { username };
+	EmailData emailData =
 	{
-		healthPrint
+		.smtpServer = "smtp.gmail.com",
+		.username = "",
+		.password = "",
+		.sender = "",
+		.receivers_email = receivers_email,
+		.subject = "",
+		.body = ""
+	};
+
+	unordered_map<EventType, vector<ReceiverPayload>> events{};
+	vector<ReceiverPayload> bannedClientPayload =
+	{
+		printData,
+		emailData
+	};
+	vector<ReceiverPayload> alreadyBannedClientPayload =
+	{
+		printData
+	};
+
+	events[EventType::event_client_was_banned_for_blacklisted_route] = bannedClientPayload;
+	events[EventType::event_client_was_banned_for_rate_limit] = bannedClientPayload;
+	events[EventType::event_already_banned_client_connected] = alreadyBannedClientPayload;
+	BanClientData banData =
+	{
+		.events = events
+	};
+
+	vector<ReceiverPayload> hpPayload =
+	{
+		printData
 	};
 	HealthPingData hpData =
 	{
 		.healthTimer = 3600, //3600 seconds (60 minutes) until health message ping
-		.receivers = payload
+		.receivers = hpPayload
 	};
 
 	ErrorMessage errorFiles =
@@ -90,59 +173,6 @@ int main()
 		.bannedIPsFile = "banned-ips.txt",
 		.blacklistedKeywordsFile = "blacklisted-keywords.txt"
 	};
-	
-	EmailSenderData emailSenderData{};
-	vector<EventType> events = 
-	{
-		EventType::event_client_was_banned,
-	};
-	emailSenderData.events = events;
-	
-	string emailSenderDataFile = path(current_path() / "email-sender-data.txt").string();
-	ifstream readFile(emailSenderDataFile);
-	if (!readFile)
-	{
-		PopupData pdata =
-		{
-			.message = "Failed to open email sender data file to read its contents!",
-			.severity = EventType::event_severity_error
-		};
-		unique_ptr<Event> event = make_unique<Event>();
-		event->SendEvent(EventType::event_create_popup, pdata);
-		return 0;
-	}
-
-	string line;
-	while (getline(readFile, line))
-	{
-		auto delimiterPos = line.find('|');
-		if (delimiterPos != string::npos)
-		{
-			auto trim = [](string& s) {
-				size_t start = s.find_first_not_of(" \t\r\n");
-				size_t end = s.find_last_not_of(" \t\r\n");
-				s = (start == string::npos 
-					|| end == string::npos) 
-					? "" 
-					: s.substr(start, end - start + 1);
-			};
-
-			if (line.find("username") != string::npos)
-			{
-				string rawUsername = line.substr(delimiterPos + 1);
-				trim(rawUsername);
-				emailSenderData.username = rawUsername;
-			}
-			else if (line.find("password") != string::npos)
-			{
-				string rawPassword = line.substr(delimiterPos + 1);
-				trim(rawPassword);
-				emailSenderData.password = rawPassword;
-			}
-		}
-	}
-
-	readFile.close();
 
 	vector<string> registeredRoutes{};
 	vector<string> adminRoutes
@@ -155,10 +185,10 @@ int main()
 		rateLimitCounter,
 		serverName,
 		domainName,
+		banData,
 		hpData,
 		errorFiles,
 		configRoutes,
-		emailSenderData,
 		registeredRoutes,
 		adminRoutes);
 
