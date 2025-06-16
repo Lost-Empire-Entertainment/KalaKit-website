@@ -5,6 +5,7 @@
   xmlrpc
   wp-admin
   setup-config
+  jquery
 
 ==================================================
 
