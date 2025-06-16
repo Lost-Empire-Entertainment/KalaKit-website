@@ -120,9 +120,9 @@ int main()
 	EmailData emailData =
 	{
 		.smtpServer = "smtp.gmail.com",
-		.username = "",
-		.password = "",
-		.sender = "",
+		.username = username,
+		.password = password,
+		.sender = username,
 		.receivers_email = receivers_email,
 		.subject = "",
 		.body = ""
