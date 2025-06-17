@@ -4,6 +4,7 @@ out/
 build-debug/
 build-release/
 *.exe
+KalaServer.lib
 
 # Ignore files containing sensitive data
 email-sender-data.txt
