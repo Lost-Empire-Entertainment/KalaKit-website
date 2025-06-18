@@ -149,7 +149,8 @@ int main()
 
 	vector<ReceiverPayload> hpPayload =
 	{
-		printData
+		printData,
+		emailData
 	};
 	HealthPingData hpData =
 	{
