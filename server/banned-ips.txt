@@ -14,6 +14,7 @@
   202.182.121.32       | Attempted to access wp-login.php
   206.189.91.241       | Attempted to access xmlrpc.php
   207.148.90.194       | Attempted to access wp-login.php
+  213.35.99.97         | Attempted to access wp-includes/ID3/license.txt
   2a06:98c0:3600::103  | Attempted to access wp-admin/setup-config.php
 
 # GitHub bots/scrapers
