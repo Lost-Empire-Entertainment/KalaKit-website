@@ -2,6 +2,7 @@
   34.27.95.226         | Attempted to access wp-includes/js/jquery/jquery.js
   34.45.185.22         | Attempted to access wp-includes and others
   34.53.61.62          | Attempted to access wp-includes/wlwmanifest.xml
+  34.63.140.89         | Attempted to access wp-includes/wlwmanifest.xml
   34.76.103.239        | Attempted to access wp-includes and others
   35.196.99.111        | Attempted to access wp-includes/wlwmanifest.xml
   103.198.133.169      | Attempted to access wp-login.php
@@ -9,6 +10,7 @@
   113.161.176.37       | Attempted to access wp-includes/wlwmanifest.xml
   129.146.7.215        | Attempted to access wp-includes/ID3/license.txt
   152.42.163.177       | Attempted to access wp-includes and others
+  152.42.242.156       | Attempted to access wp-includes/wlwmanifest.xml
   159.203.10.97        | Attempted to access wp-includes
   192.9.247.99         | Attempted to access xmlrpc.php
   202.182.121.32       | Attempted to access wp-login.php
@@ -18,6 +20,7 @@
   2a06:98c0:3600::103  | Attempted to access wp-admin/setup-config.php
 
 # GitHub bots/scrapers
+  34.56.59.179         | Attempted to access .git/config
   185.177.72.210       | Attempted to access .git/HEAD
   196.251.114.9        | Attempted to access .git/config
 
