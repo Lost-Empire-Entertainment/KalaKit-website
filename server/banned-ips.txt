@@ -21,6 +21,7 @@
 
 # GitHub bots/scrapers
   34.56.59.179         | Attempted to access .git/config
+  178.128.159.151      | Attempted to access .git/config
   185.177.72.210       | Attempted to access .git/HEAD
   196.251.114.9        | Attempted to access .git/config
 
