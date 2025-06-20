@@ -4,7 +4,7 @@
 
 This is the source code repository for the [KalaKit website](https://thekalakit.com) which is where all the documentation for the KalaKit libraries will be hosted at. 
 
-This website is hosted with [KalaServer](https://github.com/KalaKit/KalaServer), only its binaries and header files are distributed within this repository. 
+This website is hosted with [KalaServer](https://github.com/KalaKit/KalaServer), only its header files are distributed within this repository. 
 
 The website is currently under construction and is not fully functional. Lots of changes will be made in the coming weeks and months.
 
