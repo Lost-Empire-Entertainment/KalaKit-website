@@ -24,6 +24,10 @@
   178.128.159.151      | Attempted to access .git/config
   185.177.72.210       | Attempted to access .git/HEAD
   196.251.114.9        | Attempted to access .git/config
+  
+# PHP bots/scrapers
+
+  185.177.72.7         | Attempted to access phpinfo.php
 
 # Automatically added by server
 
