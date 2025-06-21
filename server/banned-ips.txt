@@ -13,6 +13,7 @@
   129.146.7.215        | Attempted to access wp-includes/ID3/license.txt
   152.42.163.177       | Attempted to access wp-includes and others
   152.42.242.156       | Attempted to access wp-includes/wlwmanifest.xml
+  159.65.5.61          | Attempted to access wp-includes/wlwmanifest.xml 
   159.203.10.97        | Attempted to access wp-includes
   192.9.247.99         | Attempted to access xmlrpc.php
   202.182.121.32       | Attempted to access wp-login.php
