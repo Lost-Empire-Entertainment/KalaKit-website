@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ROUTE/URL BUTTON CLICK
     //
 
-    const navButtons = document.querySelectorAll(".footer-button[data-link]");
+    const navButtons = document.querySelectorAll(".button-general[data-link]");
 
     navButtons.forEach(button => {
         button.addEventListener("click", () => {

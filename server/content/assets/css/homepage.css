@@ -1,3 +1,11 @@
+.page-header-homepage {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
 .project-background {
     margin: 100px 50px 0;
     height: 300px;
