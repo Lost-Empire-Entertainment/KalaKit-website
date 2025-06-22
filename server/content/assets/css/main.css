@@ -1,11 +1,9 @@
 body {
-    color: white;
+    color: #FFFFFF;
     margin: 0;
-    background-image: url("/assets/images/background.webp");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    background-image: none;
 }
 
 .page-header-container {
@@ -25,13 +23,14 @@ body {
 
 .page-title {
     margin: 0;
-    font-family: "Segoe UI", Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.5);
+    font-family: 'Roboto', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: transparent;
     display: inline-block;
     padding: 8px 16px;
     border-radius: 6px;
+    color: #FFFFFF;
 }
 
 .homepage-button-wrapper {
@@ -48,27 +47,29 @@ body {
 }
 
 .button-general {
-    background: #333;
-    color: white;
+    background: #03DAC6;
+    color: #121212;
     border: none;
-    padding: 8px 16px;
-    font-size: 14px;
+    padding: 12px 24px;
+    font-size: 16px;
     cursor: pointer;
     display: inline-block;
-    border-radius: 4px;
-    transition: box-shadow 0.2s ease, background 0.2s ease;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 700;
 }
 .button-general:hover {
-    background: #444;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    background-color: #018786;
+    box-shadow: 0 0 15px rgba(3, 218, 198, 0.5);
+    transform: translateY(-2px);
 }
 
 .footer {
     width: 100%;
-    background: #222;
-    padding: 10px 0;
+    background: #1E1E1E;
+    padding: 20px 0;
     text-align: center;
-    border-top: 1px solid #444;
+    border-top: 1px solid #333;
 }
 .footer.fixed {
     position: fixed;
@@ -79,15 +80,15 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 40px;
 }
 
 .footer-left {
     font-size: 14px;
-    color: #aaa;
+    color: #B3B3B3;
 }
 
 .footer-right {
     font-size: 14px;
-    color: #aaa;
+    color: #B3B3B3;
 }
