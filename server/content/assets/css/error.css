@@ -1,13 +1,13 @@
 :root {
-    --bg-color: #ff7474;
-    --container-bg: #2e2e2e;
-    --text-color: #ffffff;
-    --link-color: #4ea3ff;
+    --bg-color: #5a1e1e;
+    --container-bg: #1E1E1E;
+    --text-color: #FFFFFF;
+    --link-color: #03DAC6;
 }
 
 body {
     background-color: var(--bg-color);
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -20,12 +20,13 @@ body {
     background-color: var(--container-bg);
     color: var(--text-color);
     padding: 2em;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    max-width: calc(100% - 50px);
-    min-width: 800px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    min-width: auto;
     text-align: center;
     box-sizing: border-box;
+    border: 1px solid #333;
 }
 
 a {
@@ -35,7 +36,7 @@ a {
     margin-top: 1em;
 }
 
-a.hover {
+a:hover {
     text-decoration: underline;
 }
 
@@ -43,4 +44,8 @@ a.hover {
     width: 100%;
     text-align: center;
     margin-top: 2em;
+}
+
+.ocean {
+    background: var(--bg-color);
 }
