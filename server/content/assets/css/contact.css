@@ -3,12 +3,13 @@
 }
 
 .contact-background {
-    margin: 10px auto 0;
-    padding: 32px 32px 32px 32px;
+    margin: 40px auto;
+    padding: 40px;
     max-width: 1000px;
-    background: #1a1a1a;
+    background: #1E1E1E;
     border: 1px solid #333;
-    border-radius: 6px;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .contact {
@@ -29,10 +30,11 @@
     box-sizing: border-box;
     background-color: #2a2a2a;
     color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
 }
 
-.support-form input:focus,
-.support-form textarea:focus {
+.contact input:focus,
+.contact textarea:focus {
     outline: none;
     border-color: var(--link-color);
     box-shadow: 0 0 5px rgba(3, 218, 198, 0.5);
@@ -50,6 +52,6 @@
     transition: background-color 0.3s ease;
 }
 
-.support-form button:hover {
+.contact button:hover {
     background-color: #018786;
 }
