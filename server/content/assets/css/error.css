@@ -45,3 +45,7 @@ a:hover {
     text-align: center;
     margin-top: 2em;
 }
+
+.ocean {
+    background: var(--bg-color);
+}
