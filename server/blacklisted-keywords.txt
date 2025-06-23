@@ -1,11 +1,13 @@
-# Web Framework & CMS Fingerprinting
+# Common CMS
+  xmlrpc
+  jquery
+  setup-config
+
+# WordPress
   wp-includes
   wlwmanifest
   wp-login
-  xmlrpc
   wp-admin
-  setup-config
-  jquery
 
 ==================================================
 
