@@ -5,7 +5,7 @@
 	<title>KalaServer</title>
 	<link rel="stylesheet" href="/assets/css/main.css?v0024">
 	<link rel="stylesheet" href="/assets/css/project.css?v0009">
-	<link rel="stylesheet" href="/assets/css/sidebar.css?v0014">
+	<link rel="stylesheet" href="/assets/css/sidebar.css?v0028">
 	<link rel="stylesheet" href="/assets/css/footer.css?v0008">
 </head>
 <body>
@@ -23,7 +23,7 @@
 	</div>
 
 	<!--
-		Project description 
+		Project description
 	-->
 	<div class="project-description-background">
 		<div class="project-description-text">
@@ -49,10 +49,13 @@
 		The sidebar for navigating documentation pages
 	-->
 	<div id="sidebar" class="sidebar hidden">
-		<ul>
-			<li><span class="button-general" data-link="/">test 1</span></li>
-			<li><span class="button-general" data-link="/kalaserver">test 2</span></li>
-			<li><span class="button-general" data-link="/errors/500">test 3</span></li>
+		<ul id="sidebar-content">
+			<li data-nest="0" data-link="#">Test 1</li>
+			<li data-nest="1" data-link="#">Test 1.1</li>
+			<li data-nest="2" data-link="#">Test 1.1.1</li>
+			<li data-nest="3" data-link="/kalaserver">Test 1.1.1.1</li>
+			<li data-nest="0" data-link="/kalaserver">Test 2</li>
+			<li data-nest="0" data-link="/errors/500">Test 3</li>
 		</ul>
 	</div>
 	<div id="sidebar-toggle" class="sidebar-toggle">☰</div>
@@ -93,6 +96,6 @@
 	</footer>
 
 	<script src="/assets/js/main.js?v0006"></script>
-	<script src="/assets/js/sidebar.js?v0002"></script>
+	<script src="/assets/js/sidebar.js?v0016"></script>
 </body>
 </html>
