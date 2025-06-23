@@ -13,6 +13,7 @@
   34.76.103.239        | [Wordpress] - wp-includes and others
   34.90.201.254        | [Wordpress] - wp-includes/wlwmanifest.xml
   35.196.99.111        | [Wordpress] - wp-includes/wlwmanifest.xml
+  35.233.113.207       | [Wordpress] - wp-includes/wlwmanifest.xml
   35.247.4.240         | [Wordpress] - wp-includes/wlwmanifest.xml
   103.198.133.169      | [Wordpress] - wp-login.php
   107.170.66.27        | [Wordpress] - wp-login.php
@@ -41,4 +42,3 @@
 
 # Automatically added by server
 
-2a06:98c0:3600::103 | [Wordpress] - wp-admin/setup-config.php
