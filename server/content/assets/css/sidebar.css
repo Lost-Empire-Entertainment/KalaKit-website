@@ -1,0 +1,50 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 53px; /* where footer starts */
+    width: 250px;
+    background-color: #111;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 1em;
+}
+
+.sidebar ul li a {
+    color: #4ea3ff;
+    text-decoration: none;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 270px;
+    z-index: 1100;
+    background: #4ea3ff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: left 0.3s ease;
+}
+
+.sidebar.hidden ~ .sidebar-toggle {
+    left: 20px; /* button ends up 20 px from the left when sidebar is closed */
+}
