@@ -17,12 +17,17 @@
 }
 
 .sidebar ul {
+    display: flex;
+    flex-direction: column;
     list-style: none;
+    gap: 3px;
+    margin: 0;
     padding: 0;
 }
 
 .sidebar ul li {
-    margin-bottom: 1em;
+    margin: 0;
+    padding: 0;
 }
 
 .sidebar ul li a {
@@ -47,4 +52,11 @@
 
 .sidebar.hidden ~ .sidebar-toggle {
     left: 20px; /* button ends up 20 px from the left when sidebar is closed */
+}
+
+/* override main.css button variables */
+.sidebar .button-general {
+    font-size: 13px;
+    padding: 4px 12px;
+    margin: 0;
 }
