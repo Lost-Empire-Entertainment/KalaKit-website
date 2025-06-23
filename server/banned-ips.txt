@@ -15,6 +15,7 @@
   35.196.99.111        | [Wordpress] - wp-includes/wlwmanifest.xml
   35.233.113.207       | [Wordpress] - wp-includes/wlwmanifest.xml
   35.247.4.240         | [Wordpress] - wp-includes/wlwmanifest.xml
+  51.89.153.66         | [Wordpress] - 2025/wp-login.php
   103.198.133.169      | [Wordpress] - wp-login.php
   107.170.66.27        | [Wordpress] - wp-login.php
   113.161.176.37       | [Wordpress] - wp-includes/wlwmanifest.xml
