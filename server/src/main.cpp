@@ -160,8 +160,10 @@ int main()
 
 	ErrorMessage errorFiles =
 	{
+		.error400 = "/errors/400",
 		.error401 = "/errors/401",
 		.error404 = "/errors/404",
+		.error405 = "/errors/405",
 		.error418 = "/errors/418",
 		.error500 = "/errors/500"
 	};
