@@ -15,7 +15,7 @@
     -->
     <div class="page-header-container">
         <header class="page-header">
-            <h1 class="page-title">Client</h1>
+            <h1 class="page-title">CanConnect()</h1>
         </header>
 
         <div class="homepage-button-wrapper">
@@ -28,15 +28,25 @@
     -->
     <div class="project-description-background">
         <div class="project-description-text">
-            <p>
-                The <code>Client</code> class in KalaServer handles the full lifecycle of a connected user.
-                Each connection is managed in its own thread and is responsible for parsing HTTP headers,
-                validating the requested route, checking IP access, and serving the appropriate response.
-                It can deliver HTML pages, downloadable and uploadable files, or streamed media content. The class also
-                manages contact form submissions by sending emails to the host, and ensures sockets are
-                cleaned up properly after communication ends. Internally, it enforces rate limits, checks
-                for route validity, and integrates with the server’s route table and ban system.
-            </p>
+            <div class="api-desc">
+                Checks if a client is allowed to remain connected.<br>
+                Applies banlist, whitelist, blacklisted routes, and rate limiting policies.
+            </div>
+
+            <div class="api-entry api-param-list api-param-list">
+                <div><code>clientSocket</code> – Socket used to send ban or error response.</div>
+                <div><code>clientIP</code> – IP of the client for filtering or logs.</div>
+                <div><code>cleanRoute</code> – Requested route path without parameters.</div>
+                <div><code>isHost</code> – Whether the client is the server host (bypass).</div>
+            </div>
+
+            <div class="api-entry">
+                <div class="api-note">Security and rate limiting</div>
+                <code class="api-code language-cpp">CanConnect(uintptr_t&amp; clientSocket,
+            string&amp; clientIP,
+            string&amp; cleanRoute,
+            bool&amp; isHost);</code>
+            </div>
         </div>
     </div>
 

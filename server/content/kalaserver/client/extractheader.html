@@ -15,7 +15,7 @@
     -->
     <div class="page-header-container">
         <header class="page-header">
-            <h1 class="page-title">Client</h1>
+            <h1 class="page-title">ExtractHeader()</h1>
         </header>
 
         <div class="homepage-button-wrapper">
@@ -28,15 +28,19 @@
     -->
     <div class="project-description-background">
         <div class="project-description-text">
-            <p>
-                The <code>Client</code> class in KalaServer handles the full lifecycle of a connected user.
-                Each connection is managed in its own thread and is responsible for parsing HTTP headers,
-                validating the requested route, checking IP access, and serving the appropriate response.
-                It can deliver HTML pages, downloadable and uploadable files, or streamed media content. The class also
-                manages contact form submissions by sending emails to the host, and ensures sockets are
-                cleaned up properly after communication ends. Internally, it enforces rate limits, checks
-                for route validity, and integrates with the server’s route table and ban system.
-            </p>
+            <div class="api-desc">
+                Extracts a header safely with case-insensitive matching and trimming.<br>
+                Returns only the first comma-separated entry.
+                <div class="api-entry api-param-list">
+                    <div><code>request</code> – Full raw HTTP request.</div>
+                    <div><code>headerName</code> – Header name to search for (case-insensitive).</div>
+                </div>
+            </div>
+            <div class="api-entry">
+                <div class="api-note">Cloudflare / reverse proxy compatible</div>
+                <code class="api-code language-cpp">ExtractHeader(const string&amp; request,
+                const string&amp; headerName);</code>
+            </div>
         </div>
     </div>
 

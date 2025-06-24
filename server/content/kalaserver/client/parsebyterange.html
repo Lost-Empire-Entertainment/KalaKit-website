@@ -15,7 +15,7 @@
     -->
     <div class="page-header-container">
         <header class="page-header">
-            <h1 class="page-title">Client</h1>
+            <h1 class="page-title">ParseByteRange()</h1>
         </header>
 
         <div class="homepage-button-wrapper">
@@ -28,15 +28,21 @@
     -->
     <div class="project-description-background">
         <div class="project-description-text">
-            <p>
-                The <code>Client</code> class in KalaServer handles the full lifecycle of a connected user.
-                Each connection is managed in its own thread and is responsible for parsing HTTP headers,
-                validating the requested route, checking IP access, and serving the appropriate response.
-                It can deliver HTML pages, downloadable and uploadable files, or streamed media content. The class also
-                manages contact form submissions by sending emails to the host, and ensures sockets are
-                cleaned up properly after communication ends. Internally, it enforces rate limits, checks
-                for route validity, and integrates with the server’s route table and ban system.
-            </p>
+            <div class="api-desc">
+                Parses an HTTP Range header to determine the requested byte range.<br>
+                Used to support partial file downloads and streaming.
+                <div class="api-entry api-param-list">
+                    <div><code>header</code> – The raw "Range" header value.</div>
+                    <div><code>outStart</code> – Output: start byte offset requested.</div>
+                    <div><code>outEnd</code> – Output: end byte offset or 0 if unspecified.</div>
+                </div>
+            </div>
+            <div class="api-entry">
+                <div class="api-note">Enables streaming and resumable downloads</div>
+                <code class="api-code language-cpp">ParseByteRange(const string&amp; header,
+                size_t&amp; outStart,
+                size_t&amp; outEnd);</code>
+            </div>
         </div>
     </div>
 

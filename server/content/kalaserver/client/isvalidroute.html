@@ -15,7 +15,7 @@
     -->
     <div class="page-header-container">
         <header class="page-header">
-            <h1 class="page-title">Client</h1>
+            <h1 class="page-title">IsValidRoute()</h1>
         </header>
 
         <div class="homepage-button-wrapper">
@@ -28,15 +28,22 @@
     -->
     <div class="project-description-background">
         <div class="project-description-text">
-            <p>
-                The <code>Client</code> class in KalaServer handles the full lifecycle of a connected user.
-                Each connection is managed in its own thread and is responsible for parsing HTTP headers,
-                validating the requested route, checking IP access, and serving the appropriate response.
-                It can deliver HTML pages, downloadable and uploadable files, or streamed media content. The class also
-                manages contact form submissions by sending emails to the host, and ensures sockets are
-                cleaned up properly after communication ends. Internally, it enforces rate limits, checks
-                for route validity, and integrates with the server’s route table and ban system.
-            </p>
+            <div class="api-desc">
+                Checks whether a route is valid and allowed.<br>
+                Also validates file extensions against MIME-type filters.
+                <div class="api-entry api-param-list">
+                    <div><code>clientSocket</code> – Used for sending error responses if needed.</div>
+                    <div><code>clientIP</code> – Client IP for logging and enforcement.</div>
+                    <div><code>cleanRoute</code> – The cleaned and normalized request path.</div>
+                    <div><code>foundRoute</code> – Output: the matched route object, if valid.</div>
+                </div>
+            </div>
+            <div class="api-entry">
+                <code class="api-code language-cpp">IsValidRoute(uintptr_t clientSocket,
+                string clientIP,
+                string cleanRoute,
+                Route&amp; foundRoute);</code>
+            </div>
         </div>
     </div>
 

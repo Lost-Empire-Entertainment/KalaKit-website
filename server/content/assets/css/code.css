@@ -9,6 +9,20 @@
     display: block;
 }
 
+.api-param-list {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 1em;
+    margin-top: 0.75em;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 14px;
+    color: #ccc;
+}
+.api-param-list div {
+    margin-bottom: 0.4em;
+}
+
 .api-code {
     white-space: pre-wrap;
 }
@@ -21,7 +35,7 @@ code.api-code {
 
 .api-desc {
     color: #aaa;
-    white-space: pre-wrap;
+    white-space: normal;
     line-height: 1.5;
     margin-bottom: 4px;
 }

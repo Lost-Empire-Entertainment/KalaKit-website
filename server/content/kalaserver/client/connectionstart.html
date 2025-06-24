@@ -15,7 +15,7 @@
     -->
     <div class="page-header-container">
         <header class="page-header">
-            <h1 class="page-title">Client</h1>
+            <h1 class="page-title">ConnectionStart()</h1>
         </header>
 
         <div class="homepage-button-wrapper">
@@ -28,15 +28,33 @@
     -->
     <div class="project-description-background">
         <div class="project-description-text">
-            <p>
-                The <code>Client</code> class in KalaServer handles the full lifecycle of a connected user.
-                Each connection is managed in its own thread and is responsible for parsing HTTP headers,
-                validating the requested route, checking IP access, and serving the appropriate response.
-                It can deliver HTML pages, downloadable and uploadable files, or streamed media content. The class also
-                manages contact form submissions by sending emails to the host, and ensures sockets are
-                cleaned up properly after communication ends. Internally, it enforces rate limits, checks
-                for route validity, and integrates with the server’s route table and ban system.
-            </p>
+            <div class="api-desc">
+                Begins processing a new client connection and extracts request info.<br>
+                Also detects method type, routes, host status, and upload/download intent.
+                <div class="api-entry api-param-list">
+                    <div><code>method</code> – Output: HTTP method (GET or POST).</div>
+                    <div><code>request</code> – Output: full HTTP request string.</div>
+                    <div><code>clientSocket</code> – Socket used to send/receive data.</div>
+                    <div><code>clientIP</code> – Output: IP address of the client.</div>
+                    <div><code>route</code> – Output: full route with query string.</div>
+                    <div><code>cleanRoute</code> – Output: route without query parameters.</div>
+                    <div><code>isHost</code> – Output: true if the client is the host machine.</div>
+                    <div><code>wantsToDownload</code> – Output: true if `?download` is in the URL.</div>
+                    <div><code>wantsToUpload</code> – Output: true if the method is POST.</div>
+                </div>
+            </div>
+            <div class="api-entry">
+                <div class="api-note">Starts connection session</div>
+                <code class="api-code language-cpp">ConnectionStart(string&amp; method,
+            string&amp; request,
+            uintptr_t&amp; clientSocket,
+            string&amp; clientIP,
+            string&amp; route,
+            string&amp; cleanRoute,
+            bool&amp; isHost,
+            bool&amp; wantsToDownload,
+            bool&amp; wantsToUpload);</code>
+            </div>
         </div>
     </div>
 
