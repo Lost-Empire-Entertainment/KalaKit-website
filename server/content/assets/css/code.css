@@ -1,0 +1,59 @@
+.api-entry {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-family: monospace;
+    display: block;
+}
+
+.api-code {
+    white-space: pre-wrap;
+}
+
+code.api-code {
+    display: block;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.api-desc {
+    color: #aaa;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    margin-bottom: 4px;
+}
+
+.api-note {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-style: italic;
+}
+
+pre {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.cpp-keyword { 
+    color: #c586c0; 
+    font-weight: bold; 
+}
+.cpp-type {
+    color: #569cd6;
+}
+.cpp-func {
+    color: #dcdcaa;
+}
+.cpp-comment {
+    color: #6a9955;
+    font-style: italic;
+}
+.cpp-string {
+    color: #ce9178;
+}

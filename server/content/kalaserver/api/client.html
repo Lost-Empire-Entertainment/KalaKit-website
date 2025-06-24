@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KalaServer</title>
+    <link rel="stylesheet" href="/assets/css/main.css?v0024">
+    <link rel="stylesheet" href="/assets/css/project.css?v0009">
+    <link rel="stylesheet" href="/assets/css/code.css?v0006">
+    <link rel="stylesheet" href="/assets/css/sidebar.css?v0030">
+    <link rel="stylesheet" href="/assets/css/footer.css?v0008">
+</head>
+<body>
+    <!--
+        Page title and home button
+    -->
+    <div class="page-header-container">
+        <header class="page-header">
+            <h1 class="page-title">Client</h1>
+        </header>
+
+        <div class="homepage-button-wrapper">
+            <span class="button-general back-to-parent">⬅ Back</span>
+        </div>
+    </div>
+
+    <!--
+        Page description
+    -->
+    <div class="project-description-background">
+        <div class="project-description-text">
+            <p>
+                The <code>Client</code> class in KalaServer handles the full lifecycle of a connected user.
+                Each connection is managed in its own thread and is responsible for parsing HTTP headers,
+                validating the requested route, checking IP access, and serving the appropriate response.
+                It can deliver HTML pages, downloadable and uploadable files, or streamed media content. The class also
+                manages contact form submissions by sending emails to the host, and ensures sockets are
+                cleaned up properly after communication ends. Internally, it enforces rate limits, checks
+                for route validity, and integrates with the server’s route table and ban system.
+
+                <h3>Public Functions</h3>
+
+                <div class="api-desc">Runs the client in a new thread.</div>
+                <div class="api-entry">
+                    <div class="api-note">11223344</div>
+                    <pre><code class="api-code language-cpp">HandleClient(uintptr_t socket);</code></pre>
+                </div>
+
+                <div class="api-desc">Gets a specific header's value.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">ExtractHeaderValue(const string& request, const string& headerName);</code></pre>
+                </div>
+
+                <div class="api-desc">Finds raw header content (e.g. Cloudflare).</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">ExtractHeader(const string& request, const string& headerName);</code></pre>
+                </div>
+
+                <div class="api-desc">Parses byte range from header.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">ParseByteRange(const string& header, size_t& outStart, size_t& outEnd);</code></pre>
+                </div>
+
+                <h3>Private Functions</h3>
+
+                <div class="api-desc">Initializes the connection state.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">ConnectionStart(...);</code></pre>
+                </div>
+
+                <div class="api-desc">Checks if the client is allowed.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">CanConnect(...);</code></pre>
+                </div>
+
+                <div class="api-desc">Validates route and file type.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">IsValidRoute(...);</code></pre>
+                </div>
+
+                <div class="api-desc">Sends a contact form email.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">SendEmail(...);</code></pre>
+                </div>
+
+                <div class="api-desc">Closes and clears socket.</div>
+                <div class="api-entry">
+                    <pre><code class="api-code language-cpp">SocketCleanup(uintptr_t clientSocket);</code></pre>
+                </div>
+            </p>
+        </div>
+    </div>
+
+    <!--
+        The sidebar for navigating documentation pages
+    -->
+    <div id="sidebar" class="sidebar hidden">
+        <ul id="sidebar-content">
+            <li data-nest="0" data-link="/kalaserver/api/client">Client</li>
+        </ul>
+    </div>
+    <div id="sidebar-toggle" class="sidebar-toggle">☰</div>
+
+    <!--
+        The footer at the bottom of the page
+    -->
+    <footer class="footer">
+        <div class="footer-content">
+            <span class="footer-left">
+                &copy; 2025 Lost Empire Entertainment
+            </span>
+
+            <div class="footer-center">
+                <a class="social-tile" href="/contact">
+                    <img src="/assets/images/third-party/gmail.png" alt="Gmail Icon">
+                </a>
+                <a class="social-tile" href="https://www.youtube.com/greenlaser" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/third-party/youtube.png" alt="Youtube Icon">
+                </a>
+                <a class="social-tile" href="https://www.discord.gg/jkvasmTND5" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/third-party/discord.png" alt="Discord Icon">
+                </a>
+                <a class="social-tile" href="https://www.paypal.com/donate/?hosted_button_id=QWG8SAYX5TTP6" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/third-party/paypal2.png" alt="Paypal Icon">
+                </a>
+            </div>
+
+            <span class="footer-right">
+                <span class="button-general"
+                      data-link="https://github.com/Lost-Empire-Entertainment/KalaKit-website"
+                      data-newtab="true">
+                    Website source
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script src="/assets/js/main.js?v0007"></script>
+    <script src="/assets/js/sidebar.js?v0016"></script>
+    <script src="/assets/js/syntax-highlight.js?v0001"></script>
+</body>
+</html>
