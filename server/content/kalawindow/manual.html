@@ -1,32 +1,57 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>KalaCrashHandler</title>
+    <title>KalaWindow</title>
     <link rel="stylesheet" href="/assets/css/main.css?v0024">
-    <link rel="stylesheet" href="/assets/css/contact.css?v0004">
+    <link rel="stylesheet" href="/assets/css/project.css?v0009">
+    <link rel="stylesheet" href="/assets/css/sidebar.css?v0030">
     <link rel="stylesheet" href="/assets/css/footer.css?v0008">
 </head>
 <body>
+    <!--
+        Page title and home button
+    -->
     <div class="page-header-container">
         <header class="page-header">
-            <h1 class="page-title">Contact</h1>
+            <h1 class="page-title">KalaWindow API</h1>
         </header>
 
         <div class="homepage-button-wrapper">
-            <span class="button-general" data-link="/">Back home</span>
+            <span class="button-general back-to-parent">⬅ Back</span>
         </div>
     </div>
 
-    <div class="contact-background">
-        <form class="contact" method="POST" action="/client-sent-email">
-            <input type="text" name="subject" placeholder="Your name" required />
-            <input type="email" name="sender" placeholder="Your email" required />
-            <textarea name="body" placeholder="Your message" rows="6" required></textarea>
-            <button type="submit">Send</button>
-        </form>
+    <!--
+        Page description
+    -->
+    <div class="project-description-background">
+        <div class="project-description-text">
+            <p>
+                This page is the home for the KalaWindow manual. Navigate its pages by
+                opening the sidebar on the left by clicking the blue button.
+            </p>
+        </div>
     </div>
 
+    <!--
+        The sidebar for navigating documentation pages
+    -->
+    <div id="sidebar" class="sidebar hidden">
+        <ul id="sidebar-content">
+            <li data-nest="0" data-link="#">Test 1</li>
+            <li data-nest="1" data-link="#">Test 1.1</li>
+            <li data-nest="2" data-link="#">Test 1.1.1</li>
+            <li data-nest="3" data-link="/KalaWindow">Test 1.1.1.1</li>
+            <li data-nest="0" data-link="/KalaWindow">Test 2</li>
+            <li data-nest="0" data-link="/errors/500">Test 3</li>
+        </ul>
+    </div>
+    <div id="sidebar-toggle" class="sidebar-toggle">☰</div>
+
+    <!--
+        The footer at the bottom of the page
+    -->
     <footer class="footer">
         <div class="footer-content">
             <span class="footer-left">
@@ -34,6 +59,9 @@
             </span>
 
             <div class="footer-center">
+                <a class="social-tile" href="/contact">
+                    <img src="/assets/images/third-party/gmail.png" alt="Gmail Icon">
+                </a>
                 <a class="social-tile" href="https://www.youtube.com/greenlaser" target="_blank" rel="noopener noreferrer">
                     <img src="/assets/images/third-party/youtube.png" alt="Youtube Icon">
                 </a>
@@ -56,5 +84,6 @@
     </footer>
 
     <script src="/assets/js/main.js?v0007"></script>
+    <script src="/assets/js/sidebar.js?v0016"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
 	<title>KalaServer</title>
 	<link rel="stylesheet" href="/assets/css/main.css?v0024">
 	<link rel="stylesheet" href="/assets/css/project.css?v0009">
-	<link rel="stylesheet" href="/assets/css/sidebar.css?v0028">
+	<link rel="stylesheet" href="/assets/css/sidebar.css?v0030">
 	<link rel="stylesheet" href="/assets/css/footer.css?v0008">
 </head>
 <body>
@@ -18,12 +18,12 @@
 		</header>
 
 		<div class="homepage-button-wrapper">
-			<span class="button-general" data-link="/">Back home</span>
+			<span class="button-general back-to-parent">⬅ Back</span>
 		</div>
 	</div>
 
 	<!--
-		Project description
+		Page description
 	-->
 	<div class="project-description-background">
 		<div class="project-description-text">
@@ -37,6 +37,8 @@
 		</div>
 
 		<div class="project-button-row">
+			<span class="button-general" data-link="/kalaserver/api">API</span>
+			<span class="button-general" data-link="/kalaserver/manual">Manual</span>
 			<span class="button-general"
 				  data-link="https://github.com/KalaKit/KalaServer"
 				  data-newtab="true">
@@ -46,23 +48,7 @@
 	</div>
 
 	<!--
-		The sidebar for navigating documentation pages
-	-->
-	<div id="sidebar" class="sidebar hidden">
-		<ul id="sidebar-content">
-			<li data-nest="0" data-link="#">Test 1</li>
-			<li data-nest="1" data-link="#">Test 1.1</li>
-			<li data-nest="2" data-link="#">Test 1.1.1</li>
-			<li data-nest="3" data-link="/kalaserver">Test 1.1.1.1</li>
-			<li data-nest="0" data-link="/kalaserver">Test 2</li>
-			<li data-nest="0" data-link="/errors/500">Test 3</li>
-		</ul>
-	</div>
-	<div id="sidebar-toggle" class="sidebar-toggle">☰</div>
-
-	<!--
-		The footer at the bottom of the page,
-		unaffected by content wrapper
+		The footer at the bottom of the page
 	-->
 	<footer class="footer">
 		<div class="footer-content">
@@ -95,7 +81,6 @@
 		</div>
 	</footer>
 
-	<script src="/assets/js/main.js?v0006"></script>
-	<script src="/assets/js/sidebar.js?v0016"></script>
+	<script src="/assets/js/main.js?v0007"></script>
 </body>
 </html>

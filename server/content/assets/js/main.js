@@ -40,4 +40,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    //
+    // BACK TO PARENT
+    //
+
+    const backButton = document.querySelector(".back-to-parent");
+
+    if (backButton) {
+        backButton.addEventListener("click", () => {
+            const currentURL = window.location.pathname;
+            const segments = currentURL.split("/").filter(Boolean);
+            if (segments.length > 0) {
+                segments.pop(); //remove last segment
+                const parentPath = "/" + segments.join("/");
+                window.location.href = parentPath || "/";
+            }
+        })
+    }
 });
