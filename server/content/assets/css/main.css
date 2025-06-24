@@ -1,7 +1,7 @@
 body {
-    color: white;
     margin: 0;
-    background-image: url("/assets/images/background.webp");
+    color: #f0f0f0;
+    background: linear-gradient( to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) calc(50% - 600px), #1e1e1e calc(50% - 550px), #1e1e1e calc(50% + 550px), rgba(0, 0, 0, 0) calc(50% + 600px), rgba(0, 0, 0, 0) 100% ), url('/assets/images/background.webp');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;

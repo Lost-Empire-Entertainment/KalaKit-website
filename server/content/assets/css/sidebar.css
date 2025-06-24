@@ -11,7 +11,6 @@
     transition: transform 0.3s ease;
     z-index: 1000;
     border-right: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 4px 0 6px -2px rgba(70, 163, 255, 0.4);
 }
 
 .sidebar.hidden {
@@ -45,15 +44,20 @@
     top: 20px;
     left: 270px;
     z-index: 1100;
-    background: #4ea3ff;
+    background: #333333;
     color: white;
-    border: none;
     padding: 10px 15px;
     font-size: 18px;
     border-radius: 4px;
     cursor: pointer;
     transition: left 0.3s ease;
 }
+.sidebar-toggle:hover {
+    background: #444;
+    border-color: #777;
+    box-shadow: 0 0 8px rgba(200, 200, 200, 0.5); /* soft light gray glow */
+}
+
 
 .sidebar.hidden ~ .sidebar-toggle {
     left: 20px; /* button ends up 20 px from the left when sidebar is closed */

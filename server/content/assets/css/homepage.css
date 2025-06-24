@@ -7,10 +7,11 @@
 }
 
 .project-background {
-    margin: 100px 50px 0;
-    height: 300px;
+    margin: 100px auto 0;
+    max-width: 1000px;
     background: #1a1a1a;
     border: 1px solid #333;
+    padding: 20px;
 }
 
 .projects-heading {
@@ -24,13 +25,11 @@
 }
 
 .project-grid {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 30px;
-    margin-top: 30px;
-    gap: 0;
-    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 40px;
+    justify-items: center;
+    padding: 20px;
 }
 
 .project-tile {
