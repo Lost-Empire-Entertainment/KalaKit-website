@@ -80,9 +80,9 @@
 			btn.textContent = label;
 			btn.dataset.link = target;
 
-			//final level has no arrow, so its pushed manually
-			if (!hasChildren && depth === 3) {
-				btn.style.marginLeft = "3.5em";
+			//push each nested child manually if it has no children of its own
+			if (!hasChildren && depth > 0) {
+				btn.style.marginLeft = `${depth * 1.2}em`;
 			}
 
 			btn.addEventListener("click", () => {

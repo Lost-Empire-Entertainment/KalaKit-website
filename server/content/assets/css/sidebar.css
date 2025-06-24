@@ -42,7 +42,7 @@
 .sidebar-toggle {
     position: fixed;
     top: 20px;
-    left: 270px;
+    left: 220px;
     z-index: 1100;
     background: #333333;
     color: white;
@@ -65,8 +65,8 @@
 
 /* override main.css .button-general */
 .sidebar .button-general {
-    font-size: 13px;
-    padding: 4px 12px;
+    font-size: 15px;
+    padding: 6px 14px;
     margin: 0;
 }
 
@@ -83,18 +83,18 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 /* arrow button - no background, just for toggling */
 #sidebar-content .arrow-toggle {
-    font-size: 12px;
+    font-size: 16px;
     color: #ccc;
     cursor: pointer;
     background: none;
     border: none;
     padding: 0;
-    width: 12px;
+    width: 16px;
     user-select: none;
     margin-left: calc(var(--nest-level, 0) * 16px);
 }

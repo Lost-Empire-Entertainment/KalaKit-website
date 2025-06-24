@@ -7,8 +7,10 @@
     justify-content: flex-end;
     align-items: center;
     padding: 10px 10px;
-    background: #111;
-    border-bottom: 1px solid #444;
+    background: rgba(17, 17, 17, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* blur for safari */
+    border-bottom: 1px solid rgba(68, 68, 68, 0.4);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -42,22 +44,23 @@
 .homepage-button.small {
     font-size: 12px;
     padding: 7px 9px;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+    background: none;
+    box-shadow: none;
 }
 
 /* big bold flashy donate button */
 .homepage-button.donate {
     font-size: 18px;
     padding: 7px 40px;
-    background: linear-gradient(to bottom, #e88, #a00);
+    background: linear-gradient(to bottom, #f67f91, #c9465c);
     border-color: none;
     color: #fff;
-    box-shadow: 0 0 18px rgba(255, 255, 150, 0.5);
+    box-shadow: 0 0 18px rgba(200, 200, 200, 0.4);
     margin: 0 10px;
 }
 .homepage-button.donate:hover {
-    background: linear-gradient(to bottom, #f99, #c00);
-    box-shadow: 0 0 30px rgba(255, 100, 100, 0.6);
+    background: linear-gradient(to bottom, #fa8fa0, #d93f57);
+    box-shadow: 0 0 30px rgba(200, 200, 200, 0.6);
     transform: scale(1.07);
 }
 
