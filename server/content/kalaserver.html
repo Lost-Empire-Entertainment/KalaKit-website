@@ -33,24 +33,42 @@
 				At the current stage it works only with a cloudflare tunnel but
 				in the near future it will have a new option to work fully locally
 				via a custom DNS solution so cloudflared etc can only be used as domain registrars.
+
 				<br>
 				<br>
+
 				Fun fact - this website is running off of KalaServer! So all the interactions
 				you are able to do are thanks to KalaServer doing what it is supposed to do!
+
+				<br>
+				<br>
+
+				Click the button on the far left to navigate the API and manual pages.
 			</p>
 		</div>
 
 		<div class="project-button-row">
-			<span class="button-general" data-link="/kalaserver/api" title="View the API reference">API</span>
-			<span class="button-general" data-link="/kalaserver/manual" title="View the manual">Manual</span>
 			<span class="button-general"
 				  data-link="https://github.com/KalaKit/KalaServer"
-				  data-newtab="true"
-				  title="Browse the source code">
-				Project repository
+				  data-newtab="true">
+				Github source repository
 			</span>
 		</div>
 	</div>
+
+	<!--
+		The sidebar for navigating documentation pages
+	-->
+	<div id="sidebar" class="sidebar hidden">
+		<ul id="sidebar-content">
+			<li data-nest="0" data-link="#">Manual</li>
+			<li data-nest="1" data-link="#">placeholder</li>
+
+			<li data-nest="0" data-link="#">API</li>
+			<li data-nest="1" data-link="/kalaserver/api/client">Client</li>
+		</ul>
+	</div>
+	<div id="sidebar-toggle" class="sidebar-toggle">☰</div>
 
 	<!--
 		The footer at the bottom of the page
@@ -87,5 +105,6 @@
 	</footer>
 
 	<script src="/assets/js/main.js?v0008"></script>
+	<script src="/assets/js/sidebar.js?v0016"></script>
 </body>
 </html>
