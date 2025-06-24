@@ -31,8 +31,8 @@
 
 .footer-center {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 160px;
+    transform: none;
     display: grid;
     grid-auto-flow: column;
     gap: 12px;

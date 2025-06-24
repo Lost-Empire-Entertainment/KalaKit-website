@@ -1,22 +1,85 @@
+/*
+    HOMEPAGE HEADER CONTENT
+*/
+
+.homepage-header-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 10px;
+    background: #111;
+    border-bottom: 1px solid #444;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.homepage-button {
+    background: linear-gradient(to bottom, #555, #222);
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: "Segoe UI", sans-serif;
+    transition: all 0.2s ease;
+}
+.homepage-button:hover {
+    background: linear-gradient(to bottom, #777, #333);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* small buttons */
+.homepage-button.small {
+    font-size: 12px;
+    padding: 7px 9px;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+/* big bold flashy donate button */
+.homepage-button.donate {
+    font-size: 18px;
+    padding: 7px 40px;
+    background: linear-gradient(to bottom, #e88, #a00);
+    border-color: none;
+    color: #fff;
+    box-shadow: 0 0 18px rgba(255, 255, 150, 0.5);
+    margin: 0 10px;
+}
+.homepage-button.donate:hover {
+    background: linear-gradient(to bottom, #f99, #c00);
+    box-shadow: 0 0 30px rgba(255, 100, 100, 0.6);
+    transform: scale(1.07);
+}
+
+/*
+    HOMEPAGE MAIN CONTENT
+*/
+
+.homepage-main-content {
+    margin-top: 120px;
+}
+
 .page-header-homepage {
     position: absolute;
-    top: 25px;
+    top: 90px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
 }
 
-.project-background {
-    margin: 100px auto 0;
-    max-width: 1000px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    padding: 20px;
-}
-
 .projects-heading {
     color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     font-family: "Segoe UI", sans-serif;
     margin: 0;
     padding: 10px 0 5px 0;
