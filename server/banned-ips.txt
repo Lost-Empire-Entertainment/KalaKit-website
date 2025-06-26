@@ -7,6 +7,7 @@
   18.197.32.195        | [Wordpress] - wp-admin/install.php
   34.16.129.66         | [Wordpress] - wp-includes/js/jquery/jquery.js
   34.27.95.226         | [Wordpress] - wp-includes/js/jquery/jquery.js
+  34.41.165.90         | [Wordpress] - wp-includes/wlwmanifest.xml
   34.45.173.122        | [Wordpress] - wp-includes/js/jquery/jquery.js
   34.45.185.22         | [Wordpress] - wp-includes and others
   34.53.32.97          | [Wordpress] - wp-includes/wlwmanifest.xml
@@ -17,6 +18,7 @@
   34.125.106.57        | [Wordpress] - wp-includes/wlwmanifest.xml
   34.252.238.161       | [Wordpress] - backup/wp-login.php
   35.196.99.111        | [Wordpress] - wp-includes/wlwmanifest.xml
+  35.223.251.232       | [Wordpress] - wp-includes/js/jquery/jquery.js
   35.233.113.207       | [Wordpress] - wp-includes/wlwmanifest.xml
   35.247.4.240         | [Wordpress] - wp-includes/wlwmanifest.xml
   43.134.106.236       | [Wordpress] - wp-includes/js/jquery/jquery.js
@@ -25,6 +27,7 @@
   74.208.224.25        | [Wordpress] - blog/wp-login.php
   82.102.18.220        | [Wordpress] - wp-includes/ID3/license.txt
   92.223.86.11         | [Wordpress] - wp-includes/ID3/license.txt
+  103.61.240.120       | [Wordpress] - wp-login.php
   103.178.152.254      | [Wordpress] - wp-includes/wlwmanifest.xml
   103.198.133.169      | [Wordpress] - wp-login.php
   107.170.66.27        | [Wordpress] - wp-login.php
@@ -33,6 +36,7 @@
   148.113.207.247      | [Wordpress] - wp-includes/wlwmanifest.xml
   152.42.163.177       | [Wordpress] - wp-includes and others
   152.42.242.156       | [Wordpress] - wp-includes/wlwmanifest.xml
+  158.220.102.209      | [Wordpress] - wordpress/wp-login.php
   159.65.5.61          | [Wordpress] - wp-includes/wlwmanifest.xml 
   159.203.10.97        | [Wordpress] - wp-includes
   174.138.31.73        | [Wordpress] - wp-includes/wlwmanifest.xml
