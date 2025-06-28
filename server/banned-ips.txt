@@ -5,6 +5,7 @@
 
 # Wordpress
   18.197.32.195        | [Wordpress] - wp-admin/install.php
+  20.205.110.167       | [Wordpress] - www/wp-login.php
   34.16.129.66         | [Wordpress] - wp-includes/js/jquery/jquery.js
   34.27.95.226         | [Wordpress] - wp-includes/js/jquery/jquery.js
   34.41.165.90         | [Wordpress] - wp-includes/wlwmanifest.xml
