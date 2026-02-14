@@ -4,7 +4,7 @@
 
 This is the source code repository for the [KalaKit website](https://thekalakit.com) which is where all the documentation for the KalaKit libraries will be hosted at. 
 
-This website is hosted with [KalaServer](https://github.com/KalaKit/KalaServer), only its header files are distributed within this repository. 
+This website is hosted with [KalaServer](https://github.com/KalaKit/KalaServer) and you can see how it works from the [server](/server) folder.
 
 The website is currently under construction and is not fully functional. Lots of changes will be made in the coming weeks and months.
 
@@ -17,9 +17,3 @@ The website is currently under construction and is not fully functional. Lots of
 [Official Discord server](https://discord.gg/jkvasmTND5)
 
 [Official Youtube channel](https://youtube.com/greenlaser)
-
----
-
-### Team
-
-* [Greenlaser](https://github.com/greeenlaser) - *Lead developer*
