@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KalaServer</title>
+    <link rel="stylesheet" href="/assets/css/main.css?v0038">
+    <link rel="stylesheet" href="/assets/css/project.css?v0009">
+    <link rel="stylesheet" href="/assets/css/code.css?v0008">
+    <link rel="stylesheet" href="/assets/css/sidebar.css?v0040">
+    <link rel="stylesheet" href="/assets/css/footer.css?v0009">
+</head>
+<body>
+    <!--
+        Page title and home button
+    -->
+    <div class="page-header-container">
+        <header class="page-header">
+            <h1 class="page-title">SocketCleanup()</h1>
+        </header>
+
+        <div class="homepage-button-wrapper">
+            <span class="button-general back-to-parent">⬅ Back</span>
+        </div>
+    </div>
+
+    <!--
+        Page description
+    -->
+    <div class="project-description-background">
+        <div class="project-description-text">
+            <div class="api-desc">
+                Cleans up a client socket after the session ends.<br>
+                Ensures the socket is closed and removed from the active pool.
+                <div class="api-entry api-param-list">
+                    <div><code>socket</code> – The socket to disconnect and clean up.</div>
+                </div>
+            </div>
+            <div class="api-entry">
+                <code class="api-code language-cpp">SocketCleanup(uintptr_t socket);</code>
+            </div>
+        </div>
+    </div>
+
+    <!--
+        The sidebar for navigating documentation pages,
+        dynamically created from sidebar-content-kalaserver.js
+    -->
+    <div id="sidebar" class="sidebar hidden"></div>
+    <div id="sidebar-toggle" class="sidebar-toggle">☰</div>
+
+    <!--
+        The footer at the bottom of the page
+    -->
+    <footer class="footer">
+        <div class="footer-content">
+            <span class="footer-left">
+                &copy; 2025 Lost Empire Entertainment
+            </span>
+
+            <div class="footer-center">
+                <a class="social-tile" href="/contact">
+                    <img src="/assets/images/third-party/gmail.png" alt="Gmail Icon">
+                </a>
+                <a class="social-tile" href="https://www.youtube.com/greenlaser" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/third-party/youtube.png" alt="Youtube Icon">
+                </a>
+                <a class="social-tile" href="https://www.discord.gg/jkvasmTND5" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/third-party/discord.png" alt="Discord Icon">
+                </a>
+                <a class="social-tile" href="https://www.paypal.com/donate/?hosted_button_id=QWG8SAYX5TTP6" target="_blank" rel="noopener noreferrer">
+                    <img src="/assets/images/third-party/paypal2.png" alt="Paypal Icon">
+                </a>
+            </div>
+
+            <span class="footer-right">
+                <span class="button-general"
+                      data-link="https://github.com/Lost-Empire-Entertainment/KalaKit-website"
+                      data-newtab="true">
+                    Website source
+                </span>
+            </span>
+        </div>
+    </footer>
+
+    <script src="/assets/js/main.js?v0008"></script>
+    <script src="/assets/js/sidebar.js?v0024"></script>
+    <script src="/assets/js/syntax-highlight.js?v0001"></script>
+    <script src="/assets/js/sidebar-content/sidebar-content-kalaserver.js?v0003"></script>
+</body>
+</html>

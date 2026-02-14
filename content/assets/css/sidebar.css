@@ -1,0 +1,107 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 53px; /* where footer starts */
+    width: 250px;
+    background-color: rgba(17, 17, 17, 0.9);
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.sidebar.hidden {
+    transform: translateX(-100%);
+    box-shadow: none;
+}
+
+.sidebar ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    gap: 3px;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.sidebar ul li {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.sidebar ul li a {
+    color: #4ea3ff;
+    text-decoration: none;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 20px;
+    left: 270px;
+    z-index: 1100;
+    background: #333333;
+    color: white;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: left 0.3s ease;
+}
+.sidebar-toggle:hover {
+    background: #444;
+    border-color: #777;
+    box-shadow: 0 0 8px rgba(200, 200, 200, 0.5); /* soft light gray glow */
+}
+
+
+.sidebar.hidden ~ .sidebar-toggle {
+    left: 20px; /* button ends up 20 px from the left when sidebar is closed */
+}
+
+/* override main.css .button-general */
+.sidebar .button-general {
+    font-size: 15px;
+    padding: 6px 14px;
+    margin: 0;
+}
+
+.arrow-toggle {
+    font-size: 13px;
+    color: #ccc;
+    user-select: none;
+}
+.arrow-toggle:hover {
+    color: #fff;
+}
+
+#sidebar-content li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+/* arrow button - no background, just for toggling */
+#sidebar-content .arrow-toggle {
+    font-size: 16px;
+    color: #ccc;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 16px;
+    user-select: none;
+    margin-left: calc(var(--nest-level, 0) * 16px);
+}
+
+/* actual clickable button */
+#sidebar-content .button-general {
+    margin-left: 0;
+    flex: unset;
+    width: auto;
+}

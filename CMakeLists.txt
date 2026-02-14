@@ -1,47 +1,179 @@
 cmake_minimum_required(VERSION 3.29.2)
 
+set(PROGRAM_VERSION "KalaKitWebsite")
+set(PROGRAM_VERSION_NUMBER 1.0.0.0)
+
+project("KalaKitWebsite" VERSION ${PROGRAM_VERSION_NUMBER} LANGUAGES C CXX)
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-project("Server")
+# Runtime lib handling for MSVC
+if (MSVC)
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+endif()
 
-set(SERVER_ROOT "${CMAKE_SOURCE_DIR}/server")
+# Platform Detection
+if (WIN32)
+    message(STATUS "[KKW] Platform = Windows")
+elseif(UNIX)
+	message(STATUS "[KKW] Platform = Unix")
+else()
+    message(FATAL_ERROR "[KKW] Unsupported platform. Only Windows and Unix are supported.")
+endif()
 
-set(SRC_DIR "${SERVER_ROOT}/src")
-set(INCLUDE_DIR "${SERVER_ROOT}/include")
+# Build Type Detection
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(IS_DEBUG TRUE)
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
+    set(IS_RELEASE TRUE)
+else()
+    message(FATAL_ERROR "Unknown CMAKE_BUILD_TYPE: '${CMAKE_BUILD_TYPE}'! Must be Debug, Release, or RelWithDebInfo.")
+endif()
 
-set(KALASERVER_ROOT "${CMAKE_SOURCE_DIR}/external/KalaServer")
-set(EXT_OPENSSL_DIR "${CMAKE_SOURCE_DIR}/external/OpenSSL")
+# Paths
+set(SRC_DIR "${CMAKE_SOURCE_DIR}/server/src")
+set(INCLUDE_DIR "${CMAKE_SOURCE_DIR}/server/include")
 
-set(OPENSSL_LIB1_RELEASE "${EXT_OPENSSL_DIR}/release/libssl.lib")
-set(OPENSSL_LIB2_RELEASE "${EXT_OPENSSL_DIR}/release/libcrypto.lib")
-set(OPENSSL_LIB1_DEBUG "${EXT_OPENSSL_DIR}/debug/libssl.lib")
-set(OPENSSL_LIB2_DEBUG "${EXT_OPENSSL_DIR}/debug/libcrypto.lib")
+set(EXT_SHARED_DIR "${CMAKE_SOURCE_DIR}/server/_external_shared")
 
-file(GLOB_RECURSE SERVER_SOURCE_FILES CONFIGURE_DEPENDS
-	${SRC_DIR}/*.cpp
-	${SRC_DIR}/*/*.cpp
+set(EXT_KALASERVER_DIR "${EXT_SHARED_DIR}/KalaServer")
+
+if (WIN32)
+	# Library Paths
+	if(IS_RELEASE)
+		set(KALASERVER_LIBRARY_PATH "${EXT_KALASERVER_DIR}/release/libKalaServer1.dll.a")
+	else()
+		set(KALASERVER_LIBRARY_PATH "${EXT_KALASERVER_DIR}/debug/libKalaServer1d.dll.a")
+	endif()
+else()
+	# Library Paths
+	if(IS_RELEASE)
+		set(KALASERVER_LIBRARY_PATH "${EXT_KALASERVER_DIR}/release/libKalaServer1.so")
+	else()
+		set(KALASERVER_LIBRARY_PATH "${EXT_KALASERVER_DIR}/debug/libKalaServer1d.so")
+	endif()
+endif()
+
+# Source Files
+file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
+    "${SRC_DIR}/*.cpp"
+    "${SRC_DIR}/*/*.cpp"
 )
 
-add_executable(Server ${SERVER_SOURCE_FILES})
+# Executable
+add_executable(KalaKitWebsite ${SOURCE_FILES})
 
-target_include_directories(Server PUBLIC 
+if (WIN32)
+	# Enable exception handling for MSVC
+	if (MSVC)
+		target_compile_options(KalaKitWebsite PRIVATE /EHsc)
+	endif()
+endif()
+
+# Set output name with renderer suffix and debug postfix
+set_target_properties(KalaKitWebsite PROPERTIES
+	OUTPUT_NAME "KalaKitWebsite"
+)
+
+# Includes
+file(GLOB_RECURSE HEADERS
+	configure_depends
+	"${CMAKE_SOURCE_DIR}/server/include/*.hpp"
+)
+target_sources(KalaKitWebsite PRIVATE ${HEADERS})
+target_include_directories(KalaKitWebsite PRIVATE
 	"${INCLUDE_DIR}"
-	"${KALASERVER_ROOT}/include"
-	"${EXT_OPENSSL_DIR}/include"
+	"${EXT_SHARED_DIR}"
+	"${EXT_SHARED_DIR}/KalaServer/include"
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_BUILD_TYPE STREQUAL "RelWithDebInfo")
-	target_link_libraries(Server PRIVATE
-		"${KALASERVER_ROOT}/release/KalaServer.lib"
-		"${OPENSSL_LIB1_RELEASE}"
-		"${OPENSSL_LIB2_RELEASE}"
+if (WIN32)
+	# Preprocessor Defines
+	target_compile_definitions(KalaKitWebsite PRIVATE
+		WIN32_LEAN_AND_MEAN # cleaner windows.h
+		NOMINMAX            # skips min/max windows macros in favor of the std variants
+		UNICODE             # selects wide api variants over ansi for UTF16 windows functions
+		_UNICODE            # uses wide text types in the C runtime layer
+	)
+endif()
+
+# Link libraries
+target_link_libraries(KalaKitWebsite PRIVATE
+	${KALASERVER_LIBRARY_PATH})
+
+# Copy external binaries
+if(IS_RELEASE)
+	set(BIN_KALASERVER "${EXT_KALASERVER_DIR}/release")
+else()
+	set(BIN_KALASERVER "${EXT_KALASERVER_DIR}/debug")
+endif()
+
+if (WIN32)
+	if (IS_RELEASE)
+		file(GLOB BIN_FILES
+			"${BIN_KALASERVER}/*.dll"
+		)
+	else()
+		file(GLOB BIN_FILES
+			"${BIN_KALASERVER}/*.dll"
+		)
+	endif()
+else()
+	if (IS_RELEASE)
+		file(GLOB BIN_FILES
+			"${BIN_KALASERVER}/*.so"
+		)
+	else()
+		file(GLOB BIN_FILES
+			"${BIN_KALASERVER}/*.so"
+		)
+	endif()
+endif()
+
+set(BIN_TARGET_DIR "$<TARGET_FILE_DIR:KalaKitWebsite>")
+
+foreach(BIN_FILE ${BIN_FILES})
+    get_filename_component(BIN_NAME ${BIN_FILE} NAME)
+    add_custom_command(TARGET KalaKitWebsite POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+			"${BIN_FILE}"
+			"${BIN_TARGET_DIR}/${BIN_NAME}"
+    )
+endforeach()
+
+# Copy MinGW dlls
+if (MINGW AND WIN32)
+    set(MINGW_BIN_DIR "/usr/x86_64-w64-mingw32/bin")
+
+    set(MINGW_DLLS
+        libstdc++-6.dll
+        libgcc_s_seh-1.dll
+        libwinpthread-1.dll
+    )
+
+    foreach(dll ${MINGW_DLLS})
+        add_custom_command(TARGET KalaKitWebsite POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                "${MINGW_BIN_DIR}/${dll}"
+                "$<TARGET_FILE_DIR:KalaKitWebsite>/${dll}"
+        )
+    endforeach()
+endif()
+
+#copy cloudflared
+if (WIN32)
+	add_custom_command(TARGET KalaKitWebsite POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+			"${EXT_SHARED_DIR}/Cloudflared/cloudflared-windows-amd64.exe"
+			"$<TARGET_FILE_DIR:KalaKitWebsite>/cloudflared-windows-amd64.exe"
 	)
 else()
-	target_link_libraries(Server PRIVATE
-		"${KALASERVER_ROOT}/debug/KalaServer.lib"
-		"${OPENSSL_LIB1_DEBUG}"
-		"${OPENSSL_LIB2_DEBUG}"
+
+	add_custom_command(TARGET KalaKitWebsite POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+			"${EXT_SHARED_DIR}/Cloudflared/cloudflared-linux-amd64"
+			"$<TARGET_FILE_DIR:KalaKitWebsite>/cloudflared-linux-amd64"
 	)
 endif()

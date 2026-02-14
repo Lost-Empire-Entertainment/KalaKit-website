@@ -1,11 +1,19 @@
-# Ignore files and folders not needed for distribution
+# Default IDE stuff
 out/
+build/
+server/build/
 .vs/
-build-debug/
-build-release/
-*.exe
-external/KalaServer/debug
-external/KalaServer/release
+.vscode/
+.cache/
+compile_commands.json
 
-# Ignore files containing sensitive data
-email-sender-data.txt
+# Large files
+*.pdb
+*.obj
+*.exp
+
+# Misc
+*.spv # Vulkan shader files
+*.exe
+*.ilk
+*.log

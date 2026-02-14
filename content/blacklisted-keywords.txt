@@ -1,0 +1,18 @@
+# Common CMS
+  xmlrpc
+  jquery
+  setup-config
+
+# WordPress
+  wp-includes
+  wlwmanifest
+  wp-login
+  wp-admin
+
+==================================================
+
+# File Types & Repos
+  .git
+  .php
+  HEAD
+  config

@@ -1,0 +1,40 @@
+:root {
+    --link-color: #4ea3ff;
+}
+
+.contact-background {
+    margin: 10px auto 0;
+    padding: 32px 32px 32px 32px;
+    max-width: 1000px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.contact input,
+.contact textarea {
+    padding: 0.75em;
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.contact button {
+    background-color: var(--link-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75em 1.5em;
+    cursor: pointer;
+    font-size: 1em;
+}
