@@ -32,7 +32,7 @@
 - By using the KalaKit Website source, you agree that **you are solely responsible** for ensuring it meets your requirements.
 
 ## 6. Third-Party Content
-- The folder `assets/images/third-party` may include assets owned by **third parties**.
+- The folder `content` may include assets owned by **third parties**.
 - You **must comply** with any separate licenses or permissions associated with those assets.
 - This license **does not grant rights** to third-party content, and the creator **disclaims responsibility** for their use.
 
