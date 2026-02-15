@@ -10,6 +10,4 @@ using KalaKitWebsite::Core::KalaKitWebsiteCore;
 int main()
 {
     KalaKitWebsiteCore::Initialize();
-
-    return 0;
 }

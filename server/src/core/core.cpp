@@ -8,15 +8,15 @@
 #include <shlobj.h>
 #endif
 
-#include <iostream>
 #include <filesystem>
 #include <thread>
 #include <chrono>
 
 #include "KalaHeaders/log_utils.hpp"
 
-#include "KalaServer/include/server/ks_server.hpp"
-#include "KalaServer/include/server/ks_cloudflare.hpp"
+#include "server/ks_server.hpp"
+#include "server/ks_cloudflare.hpp"
+#include "server/ks_connect.hpp"
 
 #include "core/core.hpp"
 
@@ -25,12 +25,12 @@ using KalaHeaders::KalaLog::LogType;
 
 using KalaServer::Server::ServerCore;
 using KalaServer::Server::Cloudflare;
+using KalaServer::Server::Connect;
 
 #ifdef _WIN32
 using std::wstring;
 #endif
 
-using std::cin;
 using std::filesystem::path;
 using std::filesystem::current_path;
 using std::filesystem::weakly_canonical;
@@ -46,13 +46,24 @@ namespace KalaKitWebsite::Core
             "KALAKIT_WEBSITE",
              LogType::LOG_INFO);
 
-        path serverRoot = weakly_canonical(current_path() / ".." / ".." / "content");
+        path contentPath = weakly_canonical(current_path() / ".." / ".." / "content");
+
+        if (!exists(contentPath))
+        {
+            Log::Print(
+                "Failed to find content path!",
+                "KALAKIT_WEBSITE",
+                LogType::LOG_ERROR,
+                2);
+
+            exit(1);
+        }
 
         if (!ServerCore::Initialize(
             10000,
             "kalakit_server",
             "thekalakit.com",
-            serverRoot))
+            contentPath))
         {
             exit(1);
         }
@@ -84,16 +95,14 @@ namespace KalaKitWebsite::Core
 
         if (!ServerCore::HasInternet()) exit(1);
 
-         Log::Print(
-            "KalaKit website is ready!",
+        Log::Print(
+            "KalaKit website is ready, starting accept loop!",
              "KALAKIT_WEBSITE",
              LogType::LOG_INFO);
 
-        cin.get();
+        Connect::CreateListenerSocket();
 
-        ServerCore::Shutdown();
-        Cloudflare::Shutdown();
-
-        exit(0);
+        //mandatory loop to keep server alive
+        while (true) {}
     }
 }
