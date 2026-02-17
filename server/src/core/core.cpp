@@ -77,7 +77,7 @@ namespace KalaKitWebsite::Core
 
         path cloudflareExePath = current_path() / "cloudflared-windows-amd64.exe";
 #else
-        path userDir = path(getenv("HOME")) / ".cloudflared" / "kalakit-website";
+        path userDir = path(getenv("HOME")) / ".cloudflared";
         path cloudflareExePath = current_path() / "cloudflared-linux-amd64";
 #endif
 
