@@ -77,11 +77,17 @@ namespace KalaKitWebsite::Core
 
         path cloudflareExePath = current_path() / "cloudflared-windows-amd64.exe";
 #else
-        path userDir = path(getenv("HOME")) / ".cloudflared";
+        path userDir = path(getenv("HOME")) / ".cloudflared" / "kalakit-website";
         path cloudflareExePath = current_path() / "cloudflared-linux-amd64";
 #endif
 
-        if (!Cloudflare::Initialize("kalakit-tunnel", cloudflareExePath, userDir)) exit(1);
+        if (!Cloudflare::Initialize(
+            "kalakit-tunnel", 
+            cloudflareExePath, 
+            userDir))
+        {
+            exit(1);
+        }
 
         while (!ServerCore::IsReady())
         {
