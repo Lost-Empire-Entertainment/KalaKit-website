@@ -8,7 +8,7 @@
 #include <string>
 #include <memory>
 #include <vector>
-#include <functional>
+#include <unordered_map>
 
 #include "KalaHeaders/core_utils.hpp"
 #include "KalaHeaders/thread_utils.hpp"
@@ -19,7 +19,7 @@ namespace KalaServer::Server
     using std::string_view;
     using std::unique_ptr;
     using std::vector;
-    using std::function;
+	using std::unordered_map;
 
     using u8 = uint8_t;
 	using u16 = uint16_t;
@@ -30,6 +30,23 @@ namespace KalaServer::Server
 	using KalaHeaders::KalaThread::abool;
 	using KalaHeaders::KalaThread::auptr;
 
+	//How long is a user by IP timed out for in minutes
+	//when violating max payload size or min packet spacing
+	constexpr u8 TIME_OUT_PERIOD_M = 10u;
+
+	//How long in seconds do we store all connections and check if the connected IP
+	//has connected faster than MIN_PACKET_SPACING within this time period
+	constexpr u8 ROLLING_WINDOW_TIMER_S = 5u;
+	//Whats the shortest allowed time in milliseconds that a client
+	//is allowed to have between each connection attempt
+	constexpr u8 MIN_PACKET_SPACING_MS = 200u;
+
+	//Wait for this amount of seconds before deeming the connection as inactive.
+	constexpr u16 ACCEPT_WAIT_TIME_S = 60u;
+
+	//Client must not exceed this max payload capacity in bytes at accept loop
+	constexpr u16 MAX_TOTAL_PAYLOAD_SIZE_BYTES = 8192u;
+
 	//Unreachable socket value for unassigned socket
 	constexpr u32 UNASSIGNED_SOCKET_VALUE = 1000000u;
 
@@ -38,7 +55,7 @@ namespace KalaServer::Server
 
 	//Sleep this many seconds on the listener thread before retrying from start
 	//if internet checks failed at the top of the listener thread
-	constexpr u8 SERVER_HEALTH_SLEEP_SECONDS = 1;
+	constexpr u8 SERVER_HEALTH_SLEEP_S = 1;
 
 	enum class IPResult : u8
 	{
@@ -57,31 +74,38 @@ namespace KalaServer::Server
 	{
 		//Default empty-state and return type for invalid getters,
 		//users and routes cannot be given this role
-		ROLE_NONE        = 0,
+		ROLE_NONE        = 0u,
 
 		//Users with this role have been manually banned or autobanned by the server,
 		//routes cannot be given this role
-		ROLE_BANNED      = 1,
+		ROLE_BANNED      = 1u,
 
 		//Users with this role have default server access,
 		//guests, whitelisted, users and admins can access routes with this role
-		ROLE_GUEST       = 2,
-
-		//Users with this role are same as guests but will never get autobanned,
-		//routes cannot be given this role
-		ROLE_WHITELISTED = 3,
+		ROLE_GUEST       = 2u,
 
 		//Role dedicated to honeypot routes to catch annoying bots, users cannot be given this role,
 		//guests will get autobanned if they access this route
-		ROLE_BLACKLISTED = 4,
+		ROLE_BLACKLISTED = 3u,
 
 		//Users with this role can access routes with user privileges,
 		//users and admins can access routes with this role
-		ROLE_USER        = 5,
+		ROLE_USER        = 4u,
 
 		//Users with this role bypass all privileges,
 		//only admins can access routes with this role
-		ROLE_ADMIN       = 6
+		ROLE_ADMIN       = 5u
+	};
+
+	//The data received from an accepted socket ready to be parsed
+	struct LIB_API RequestData
+	{
+		string method{};
+		string route{};
+		string httpVersion{};
+		string host{};
+		unordered_map<string, string> headers{};
+		string body{};
 	};
 
 	//Any inbound or outbound socket and its data regardless of origin or destination,
@@ -92,16 +116,13 @@ namespace KalaServer::Server
 		abool isRunning{};
 
 		string connectionIP{};
-		mutex m_connectionIP{};
-
 		string connectionRoute{};
-		mutex m_connectionRoute{};
 
 		auptr connectionSocket = UNASSIGNED_SOCKET_VALUE;
 
 		thread connectionThread{};
 
-		~Connection();
+		RequestData requestData{};
 	};
 
 	struct LIB_API User
@@ -119,67 +140,29 @@ namespace KalaServer::Server
     class LIB_API Connect 
     {
     public:
-		static void HandleListenerCallback(Connection& c);
-
         //Create a new listener socket, the sole purpose of this socket is to be able to receive
 		//incoming traffic so others with internet access can communicate with this server.
 		//Only one listener socket is allowed, it is created on a separate thread.
-		static void CreateListenerSocket(function<void(Connection&)> onConnect = {});
+		static bool CreateListenerSocket();
 
         static bool IsListenerRunning();
-		//Create a new socket for sending packets to a specific target IP,
-		//required for sending non-local packets.
-		//Can pass an optional callback that gets fired if this connect socket fails to be created.
-		static void CreateConnectSocket(
-			const string& targetIP,
-			function<void()> onConnectFail = {});
 
-		static Connection* GetListenerSocket();
+		static const Connection& GetListenerSocket();
 		static mutex& GetListenerMutex();
 
-		static vector<Connection*> GetConnectSockets();
+		static const vector<const Connection*>& GetConnectSockets();
 		static mutex& GetConnectMutex();
 
-		//Send a packet from this server to a known target,
-		//requires a socket that has been already created with CreateConnectSocket.
-		//If getResponse is true then onSucceed does your desired callback
-		//with the returned payload and onFail calls your response failure callback
-		static void SendPacket(
-			uintptr_t targetSocket,
-			bool getResponse = false,
-			function<void(vector<u8>)> onSucceed = {},
-			function<void()> onFail = {});
+		//Disconnect the target user via connect socket
+		static void DisconnectConnectedUser(uintptr_t targetSocket);
 
-		//Send a local packet from this server, does not keep the socket alive after use.
-		//If getResponse is true then onSucceed does your desired callback
-		//with the returned payload and onFail calls your response failure callback
-		static void SendPacketLocal(
-			const string& targetIP,
-			bool getResponse = false,
-			function<void(vector<u8>)> onSucceed = {},
-			function<void()> onFail = {});
+		//Disconnect the target user via IP
+		static void DisconnectConnectedUser(const string& targetIP);
 
-		//Disconnect the target user via connect socket with an optional reason sent as payload
-		static void DisconnectConnectedUser(
-			uintptr_t targetSocket,
-			string_view reason = {});
+		//Closes the server listener socket and all inbound sockets and all outbound packets
+		static void DisconnectListener();
 
-		//Disconnect the target user via IP with an optional reason sent as payload
-		static void DisconnectConnectedUser(
-			const string& targetIP,
-			string_view reason = {});
-
-		//Closes the server listener socket and all inbound sockets and all outbound packets,
-		//with optional reason sent as payload to all inbound sockets
-		static void DisconnectListener(string_view reason = {});
-
-		//Closes all outgoing packet sockets,
-		//with optional reason sent as payload
-		static void CancelAllPackets(string_view reason = {});
-
-		static IPResult IsValidIP(const string& targetIP);
-
-		static string IPResultToString(IPResult result);
+		static bool IsValidIP(const string& targetIP);
 
 		static string RoleToString(Role role);
 		static Role StringToRole(const string& role);

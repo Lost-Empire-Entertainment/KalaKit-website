@@ -5,9 +5,9 @@
 
 #pragma once
 
-namespace KalaKitWebsite::Core
+namespace WebsiteBackend::Core
 {
-    class KalaKitWebsiteCore
+    class WebsiteBackendCore
     {
     public:
         static void Initialize();

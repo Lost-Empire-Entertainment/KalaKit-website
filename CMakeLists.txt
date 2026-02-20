@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.29.2)
 
-set(PROGRAM_VERSION "KalaKitWebsite")
+set(PROGRAM_VERSION "WebsiteBackend")
 set(PROGRAM_VERSION_NUMBER 1.0.0.0)
 
-project("KalaKitWebsite" VERSION ${PROGRAM_VERSION_NUMBER} LANGUAGES C CXX)
+project("WebsiteBackend" VERSION ${PROGRAM_VERSION_NUMBER} LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -16,11 +16,11 @@ endif()
 
 # Platform Detection
 if (WIN32)
-    message(STATUS "[KKW] Platform = Windows")
+    message(STATUS "[WEBSITE_BACKEND] Platform = Windows")
 elseif(UNIX)
-	message(STATUS "[KKW] Platform = Unix")
+	message(STATUS "[WEBSITE_BACKEND] Platform = Unix")
 else()
-    message(FATAL_ERROR "[KKW] Unsupported platform. Only Windows and Unix are supported.")
+    message(FATAL_ERROR "[WEBSITE_BACKEND] Unsupported platform. Only Windows and Unix are supported.")
 endif()
 
 # Build Type Detection
@@ -63,18 +63,18 @@ file(GLOB_RECURSE SOURCE_FILES CONFIGURE_DEPENDS
 )
 
 # Executable
-add_executable(KalaKitWebsite ${SOURCE_FILES})
+add_executable(WebsiteBackend ${SOURCE_FILES})
 
 if (WIN32)
 	# Enable exception handling for MSVC
 	if (MSVC)
-		target_compile_options(KalaKitWebsite PRIVATE /EHsc)
+		target_compile_options(WebsiteBackend PRIVATE /EHsc)
 	endif()
 endif()
 
 # Set output name with renderer suffix and debug postfix
-set_target_properties(KalaKitWebsite PROPERTIES
-	OUTPUT_NAME "KalaKitWebsite"
+set_target_properties(WebsiteBackend PROPERTIES
+	OUTPUT_NAME "WebsiteBackend"
 )
 
 # Includes
@@ -82,8 +82,8 @@ file(GLOB_RECURSE HEADERS
 	configure_depends
 	"${CMAKE_SOURCE_DIR}/server/include/*.hpp"
 )
-target_sources(KalaKitWebsite PRIVATE ${HEADERS})
-target_include_directories(KalaKitWebsite PRIVATE
+target_sources(WebsiteBackend PRIVATE ${HEADERS})
+target_include_directories(WebsiteBackend PRIVATE
 	"${INCLUDE_DIR}"
 	"${EXT_SHARED_DIR}"
 	"${EXT_SHARED_DIR}/KalaServer/include"
@@ -91,7 +91,7 @@ target_include_directories(KalaKitWebsite PRIVATE
 
 if (WIN32)
 	# Preprocessor Defines
-	target_compile_definitions(KalaKitWebsite PRIVATE
+	target_compile_definitions(WebsiteBackend PRIVATE
 		WIN32_LEAN_AND_MEAN # cleaner windows.h
 		NOMINMAX            # skips min/max windows macros in favor of the std variants
 		UNICODE             # selects wide api variants over ansi for UTF16 windows functions
@@ -100,7 +100,7 @@ if (WIN32)
 endif()
 
 # Link libraries
-target_link_libraries(KalaKitWebsite PRIVATE
+target_link_libraries(WebsiteBackend PRIVATE
 	${KALASERVER_LIBRARY_PATH})
 
 # Copy external binaries
@@ -132,11 +132,11 @@ else()
 	endif()
 endif()
 
-set(BIN_TARGET_DIR "$<TARGET_FILE_DIR:KalaKitWebsite>")
+set(BIN_TARGET_DIR "$<TARGET_FILE_DIR:WebsiteBackend>")
 
 foreach(BIN_FILE ${BIN_FILES})
     get_filename_component(BIN_NAME ${BIN_FILE} NAME)
-    add_custom_command(TARGET KalaKitWebsite POST_BUILD
+    add_custom_command(TARGET WebsiteBackend POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
 			"${BIN_FILE}"
 			"${BIN_TARGET_DIR}/${BIN_NAME}"
@@ -154,26 +154,26 @@ if (MINGW AND WIN32)
     )
 
     foreach(dll ${MINGW_DLLS})
-        add_custom_command(TARGET KalaKitWebsite POST_BUILD
+        add_custom_command(TARGET WebsiteBackend POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 "${MINGW_BIN_DIR}/${dll}"
-                "$<TARGET_FILE_DIR:KalaKitWebsite>/${dll}"
+                "$<TARGET_FILE_DIR:WebsiteBackend>/${dll}"
         )
     endforeach()
 endif()
 
 #copy cloudflared
 if (WIN32)
-	add_custom_command(TARGET KalaKitWebsite POST_BUILD
+	add_custom_command(TARGET WebsiteBackend POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy
 			"${EXT_SHARED_DIR}/Cloudflared/cloudflared-windows-amd64.exe"
-			"$<TARGET_FILE_DIR:KalaKitWebsite>/cloudflared-windows-amd64.exe"
+			"$<TARGET_FILE_DIR:WebsiteBackend>/cloudflared-windows-amd64.exe"
 	)
 else()
 
-	add_custom_command(TARGET KalaKitWebsite POST_BUILD
+	add_custom_command(TARGET WebsiteBackend POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy
 			"${EXT_SHARED_DIR}/Cloudflared/cloudflared-linux-amd64"
-			"$<TARGET_FILE_DIR:KalaKitWebsite>/cloudflared-linux-amd64"
+			"$<TARGET_FILE_DIR:WebsiteBackend>/cloudflared-linux-amd64"
 	)
 endif()

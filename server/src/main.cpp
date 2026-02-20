@@ -5,9 +5,9 @@
 
 #include "core/core.hpp"
 
-using KalaKitWebsite::Core::KalaKitWebsiteCore;
+using WebsiteBackend::Core::WebsiteBackendCore;
 
 int main()
 {
-    KalaKitWebsiteCore::Initialize();
+    WebsiteBackendCore::Initialize();
 }
