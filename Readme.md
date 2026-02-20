@@ -1,12 +1,12 @@
-# KalaKit website
+# Websites Repository
 
 [![License](https://img.shields.io/badge/license-Proprietary-blue)](LICENSE.md)
 
-This is the source code repository for the [KalaKit website](https://thekalakit.com) which is where all the documentation for the KalaKit libraries will be hosted at. 
+This is the source code repository for the [KalaKit website](https://thekalakit.com) and [Elypso Engine website](httphs://elypsoengine.com) which is where all the documentation for the KalaKit libraries and Elypso Engine will be hosted at. 
 
-This website is hosted with [KalaServer](https://github.com/KalaKit/KalaServer) and you can see how it works from the [server](/server) folder.
+These websites are hosted with [KalaServer](https://github.com/KalaKit/KalaServer) and you can see how it works from the [server](/server) folder.
 
-The website is currently under construction and is not fully functional. Lots of changes will be made in the coming weeks and months.
+These websites are currently under construction and are not yet live 24/7 so please be patient as they are being brought up to date.
 
 ---
 
