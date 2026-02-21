@@ -51,7 +51,7 @@ namespace KalaServer::Server
 	constexpr u32 UNASSIGNED_SOCKET_VALUE = 1000000u;
 
 	//All further connect sockets are closed if this amount of total connections is reached
-	constexpr u16 MAX_ACTIVE_CONNECTIONS = 1000u;
+	constexpr u16 MAX_ACTIVE_CONNECTIONS = 10000u;
 
 	//Sleep this many seconds on the listener thread before retrying from start
 	//if internet checks failed at the top of the listener thread
